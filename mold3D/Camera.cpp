@@ -4,7 +4,7 @@ using namespace mold::objects;
 
 Camera::Camera() {}
 
-Camera::Camera(Point3D point) : GameObject(point, {0, 0, 0}) {}
+Camera::Camera(Point3D point) : GameObject(point, {0, 0, 0},0) {}
 
 void Camera::Draw()
 {

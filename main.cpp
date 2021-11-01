@@ -3,6 +3,18 @@ mold::objects::Pyramid pyramid;
 mold::objects::Cube cube;
 mold::objects::Camera camera;
 
+bool CheckCollision(mold::objects::GameObject one, mold::objects::GameObject two) // AABB - AABB collision
+{
+    // collision x-axis?
+    bool collisionX = one.coords.X + one.Size >= two.coords.X &&
+        two.coords.X + two.Size >= one.coords.X;
+    // collision y-axis?
+    bool collisionY = one.coords.Y + one.Size >= two.coords.Y &&
+        two.coords.Y + two.Size >= one.coords.Y;
+    // collision only if on both axes
+    return collisionX && collisionY;
+}  
+
 void draw()
 {
    // Draw ground
@@ -14,8 +26,11 @@ void draw()
    glVertex3f(10.0f, 0, -10.0f);
    glEnd();
 
-   cube.Draw();
-   pyramid.Draw();
+   if(CheckCollision(camera,cube))
+      camera.coords.X -= 0.15f;
+
+      cube.Draw();
+      pyramid.Draw();
 }
 
 int main(int argc, char **argv)

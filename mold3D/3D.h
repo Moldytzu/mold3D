@@ -22,10 +22,11 @@ namespace mold
         {
         public:
             GameObject();
-            GameObject(Point3D point, RGB color);
+            GameObject(Point3D point, RGB color, Float3D Size);
             void Draw();
             Point3D coords;
             RGB color;
+            Float3D Size;
         };
 
         class Pyramid : public GameObject
@@ -34,7 +35,6 @@ namespace mold
             Pyramid();
             Pyramid(Point3D point, RGB color, Float3D Size);
             virtual void Draw();
-            Float3D Size;
         };
 
         class Cube : public GameObject
@@ -43,7 +43,6 @@ namespace mold
             Cube();
             Cube(Point3D point, RGB color, Float3D Size);
             virtual void Draw();
-            Float3D Size;
         };
 
         class Camera : public GameObject

@@ -4,9 +4,8 @@ using namespace mold::objects;
 
 Cube::Cube() {}
 
-Cube::Cube(Point3D point, RGB color, Float3D Size) : GameObject(point, color)
+Cube::Cube(Point3D point, RGB color, Float3D Size) : GameObject(point, color,Size)
 {
-    this->Size = Size;
     this->coords.X -= Size/2;
     this->coords.Z += Size/2;
 }

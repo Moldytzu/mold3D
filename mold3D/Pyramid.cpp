@@ -4,9 +4,9 @@ using namespace mold::objects;
 
 Pyramid::Pyramid() {}
 
-Pyramid::Pyramid(Point3D point, RGB color, Float3D Size) : GameObject(point, color)
+Pyramid::Pyramid(Point3D point, RGB color, Float3D Size) : GameObject(point, color, Size)
 {
-    this->Size = Size;
+
 }
 
 void Pyramid::Draw()
