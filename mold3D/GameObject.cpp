@@ -2,11 +2,10 @@
 
 using namespace mold::objects;
 
-GameObject::GameObject(Float3D X, Float3D Y, Float3D Z)
+GameObject::GameObject(Point3D point, RGB color)
 {
-    this->X = X;
-    this->Y = Y;
-    this->Z = Z;
+    this->coords = point;
+    this->color = color;
 }
 
 GameObject::GameObject() {}

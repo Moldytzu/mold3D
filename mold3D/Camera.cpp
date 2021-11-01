@@ -4,22 +4,22 @@ using namespace mold::objects;
 
 Camera::Camera() {}
 
-Camera::Camera(Float3D X, Float3D Y, Float3D Z) : GameObject(X, Y, Z) {}
+Camera::Camera(Point3D point) : GameObject(point, {0, 0, 0}) {}
 
 void Camera::Draw()
 {
     glLoadIdentity();
-    gluLookAt(X, Y, Z,                   // eye -> camera position
-              X + AngleX, Y, Z + AngleZ, // center -> camera + angle
-              0.0f, Y, 0.0f);            // up -> 0
+    gluLookAt(coords.X, coords.Y, coords.Z,                   // eye -> camera position
+              coords.X + AngleX, coords.Y, coords.Z + AngleZ, // center -> camera + angle
+              0.0f, coords.Y, 0.0f);                          // up -> 0
 }
 
 void Camera::Update(bool *keys)
 {
     if (keys['W'] || keys['w'])
     {
-        X += AngleX * 0.05f;
-        Z += AngleZ * 0.05f;
+        coords.X += AngleX * 0.05f;
+        coords.Z += AngleZ * 0.05f;
     }
     if (keys['D'] || keys['d'])
     {
@@ -35,7 +35,7 @@ void Camera::Update(bool *keys)
     }
     if (keys['s'] || keys['s'])
     {
-        X -= AngleX * 0.05f;
-        Z -= AngleZ * 0.05f;
+        coords.X -= AngleX * 0.05f;
+        coords.Z -= AngleZ * 0.05f;
     }
 }

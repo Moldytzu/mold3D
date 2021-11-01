@@ -4,7 +4,7 @@ using namespace mold::objects;
 
 Pyramid::Pyramid() {}
 
-Pyramid::Pyramid(Float3D X, Float3D Y, Float3D Z, Float3D Size) : GameObject(X, Y, Z)
+Pyramid::Pyramid(Point3D point, RGB color, Float3D Size) : GameObject(point, color)
 {
     this->Size = Size;
 }
@@ -12,36 +12,39 @@ Pyramid::Pyramid(Float3D X, Float3D Y, Float3D Z, Float3D Size) : GameObject(X, 
 void Pyramid::Draw()
 {
     glPushMatrix();
+
+    glColor3f(color.R, color.G, color.B); // set color
+
     glBegin(GL_TRIANGLES);
 
     // Front
-    glVertex3f(X, Y + Size, -Z);
-    glVertex3f(X - Size, Y - Size, -Z + Size);
-    glVertex3f(X + Size, Y - Size, -Z + Size);
+    glVertex3f(coords.X, coords.Y + Size, -coords.Z);
+    glVertex3f(coords.X - Size, coords.Y - Size, -coords.Z + Size);
+    glVertex3f(coords.X + Size, coords.Y - Size, -coords.Z + Size);
 
     // Right
-    glVertex3f(X, Y + Size, -Z);
-    glVertex3f(X + Size, Y - Size, -Z + Size);
-    glVertex3f(X + Size, Y - Size, -Z - Size);
+    glVertex3f(coords.X, coords.Y + Size, -coords.Z);
+    glVertex3f(coords.X + Size, coords.Y - Size, -coords.Z + Size);
+    glVertex3f(coords.X + Size, coords.Y - Size, -coords.Z - Size);
 
     // Back
-    glVertex3f(X, Y + Size, -Z);
-    glVertex3f(X + Size, Y - Size, -Z - Size);
-    glVertex3f(X - Size, Y - Size, -Z - Size);
+    glVertex3f(coords.X, coords.Y + Size, -coords.Z);
+    glVertex3f(coords.X + Size, coords.Y - Size, -coords.Z - Size);
+    glVertex3f(coords.X - Size, coords.Y - Size, -coords.Z - Size);
 
     // Left
-    glVertex3f(X, Y + Size, -Z);
-    glVertex3f(X - Size, Y - Size, -Z - Size);
-    glVertex3f(X - Size, Y - Size, -Z + Size);
+    glVertex3f(coords.X, coords.Y + Size, -coords.Z);
+    glVertex3f(coords.X - Size, coords.Y - Size, -coords.Z - Size);
+    glVertex3f(coords.X - Size, coords.Y - Size, -coords.Z + Size);
 
     glEnd();
 
     glBegin(GL_QUADS);
     // Bottom
-    glVertex3f(X + Size / 2, Y, Z + Size / 2);
-    glVertex3f(X - Size / 2, Y, Z + Size / 2);
-    glVertex3f(X - Size / 2, Y, Z - Size / 2);
-    glVertex3f(X + Size / 2, Y, Z - Size / 2);
+    glVertex3f(coords.X + Size / 2, coords.Y, coords.Z + Size / 2);
+    glVertex3f(coords.X - Size / 2, coords.Y, coords.Z + Size / 2);
+    glVertex3f(coords.X - Size / 2, coords.Y, coords.Z - Size / 2);
+    glVertex3f(coords.X + Size / 2, coords.Y, coords.Z - Size / 2);
     glEnd();
     glPopMatrix();
 }

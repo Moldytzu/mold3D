@@ -6,22 +6,33 @@ namespace mold
 {
     typedef GLfloat Float3D;
 
+    struct Point3D
+    {
+        Float3D X, Y, Z;
+    };
+
+    struct RGB
+    {
+        Float3D R, G, B;
+    };
+
     namespace objects
     {
         class GameObject
         {
         public:
             GameObject();
-            GameObject(Float3D X, Float3D Y, Float3D Z);
+            GameObject(Point3D point, RGB color);
             void Draw();
-            Float3D X, Y, Z;
+            Point3D coords;
+            RGB color;
         };
 
         class Pyramid : public GameObject
         {
         public:
             Pyramid();
-            Pyramid(Float3D X, Float3D Y, Float3D Z, Float3D Size);
+            Pyramid(Point3D point, RGB color, Float3D Size);
             virtual void Draw();
             Float3D Size;
         };
@@ -30,7 +41,7 @@ namespace mold
         {
         public:
             Cube();
-            Cube(Float3D X, Float3D Y, Float3D Z, Float3D Size);
+            Cube(Point3D point, RGB color, Float3D Size);
             virtual void Draw();
             Float3D Size;
         };
@@ -39,7 +50,7 @@ namespace mold
         {
         public:
             Camera();
-            Camera(Float3D X, Float3D Y, Float3D Z);
+            Camera(Point3D point);
             virtual void Draw();
             void Update(bool *keys);
 
