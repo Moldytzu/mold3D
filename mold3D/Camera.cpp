@@ -9,9 +9,9 @@ Camera::Camera(Float3D X, Float3D Y, Float3D Z) : GameObject(X, Y, Z) {}
 void Camera::Draw()
 {
     glLoadIdentity();
-    gluLookAt(X, Y, Z,
-              X + AngleX, Y, Z + AngleZ,
-              0.0f, Y, 0.0f);
+    gluLookAt(X, Y, Z,                   // eye -> camera position
+              X + AngleX, Y, Z + AngleZ, // center -> camera + angle
+              0.0f, Y, 0.0f);            // up -> 0
 }
 
 void Camera::Update(bool *keys)

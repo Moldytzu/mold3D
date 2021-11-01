@@ -2,11 +2,12 @@
 
 using namespace mold::objects;
 
-GameObject::GameObject(Float3D X,Float3D Y,Float3D Z) {
+GameObject::GameObject(Float3D X, Float3D Y, Float3D Z)
+{
     this->X = X;
     this->Y = Y;
     this->Z = Z;
-} 
+}
 
 GameObject::GameObject() {}
 
