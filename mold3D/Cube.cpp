@@ -7,6 +7,8 @@ Cube::Cube() {}
 Cube::Cube(Point3D point, RGB color, Float3D Size) : GameObject(point, color)
 {
     this->Size = Size;
+    this->coords.X -= Size/2;
+    this->coords.Z += Size/2;
 }
 
 void Cube::Draw()
