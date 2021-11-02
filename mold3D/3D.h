@@ -1,5 +1,7 @@
 #pragma once
 #include <GL/glut.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
 #include <math.h>
 
 namespace mold
@@ -52,16 +54,15 @@ namespace mold
             Camera(Point3D point);
             virtual void Draw();
             void Update(bool *keys);
-
-        private:
+            int lastOP = 0;
             Float3D AngleZ = -1.0f, AngleX = 0, Angle = 0;
         };
     };
 
     namespace core
     {
-        void Init(int argc, char **argv, objects::Camera *camera, void (*draw)());
-        void Init(int argc, char **argv, objects::Camera *camera, void (*draw)(), int width, int height);
+        void Init(objects::Camera *camera, void (*draw)());
+        void Init(objects::Camera *camera, void (*draw)(), int width, int height);
         void Run();
     };
 

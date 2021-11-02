@@ -20,22 +20,26 @@ void Camera::Update(bool *keys)
     {
         coords.X += AngleX * 0.05f;
         coords.Z += AngleZ * 0.05f;
+        lastOP = 'w';
     }
     if (keys['D'] || keys['d'])
     {
         Angle += 0.05f;
         AngleX = sin(Angle);
         AngleZ = -cos(Angle);
+        lastOP = 'd';
     }
     if (keys['a'] || keys['a'])
     {
         Angle -= 0.05f;
         AngleX = sin(Angle);
         AngleZ = -cos(Angle);
+        lastOP = 'a';
     }
     if (keys['s'] || keys['s'])
     {
         coords.X -= AngleX * 0.05f;
         coords.Z -= AngleZ * 0.05f;
+        lastOP = 's';
     }
 }
