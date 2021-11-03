@@ -64,3 +64,7 @@ void mold::core::Run()
     }
     //glutMainLoop(); // do the main loop
 }
+
+bool* mold::core::input::GetKeyStates() {
+    return keys;
+}

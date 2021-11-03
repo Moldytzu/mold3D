@@ -5,7 +5,19 @@ mold::objects::Camera camera;
 
 void draw()
 {
-   camera.Move(DIRECTION_RIGHT,0.1f);
+   bool* keys = mold::core::input::GetKeyStates();
+
+   if(keys['d'] || keys['D'])
+      camera.Move(DIRECTION_RIGHT,0.1f);
+
+   if(keys['a'] || keys['A'])
+      camera.Move(DIRECTION_LEFT,0.1f);
+
+   if(keys['w'] || keys['W'])
+      camera.Move(DIRECTION_FORWARD,0.1f);
+
+   if(keys['s'] || keys['S'])
+      camera.Move(DIRECTION_BACKWARD,0.1f);
 
    // Draw ground
    glColor3f(0, 1, 0);

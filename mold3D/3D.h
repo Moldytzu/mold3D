@@ -66,6 +66,10 @@ namespace mold
 
     namespace core
     {
+        namespace input {
+            bool* GetKeyStates();
+        };
+
         void Init(objects::Camera *camera, void (*draw)());
         void Init(objects::Camera *camera, void (*draw)(), int width, int height);
         void Run();
