@@ -29,7 +29,7 @@ void draw()
    glVertex3f(10.0f, 0, -10.0f);
    glEnd();
 
-   cube.Draw();
+   //cube.Draw();
    pyramid.Draw();
 }
 

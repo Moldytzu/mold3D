@@ -69,7 +69,6 @@ void mold::core::Run()
         userDraw();
 
         SDL_GL_SwapWindow(Window);
-        SDL_Delay(1);
     }
     //glutMainLoop(); // do the main loop
 }
