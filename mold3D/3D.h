@@ -6,10 +6,10 @@
 
 namespace mold
 {
-    #define DIRECTION_FORWARD 0
-    #define DIRECTION_BACKWARD 1
-    #define DIRECTION_LEFT 2
-    #define DIRECTION_RIGHT 3
+#define DIRECTION_FORWARD 0
+#define DIRECTION_BACKWARD 1
+#define DIRECTION_LEFT 2
+#define DIRECTION_RIGHT 3
 
     typedef GLfloat Float3D;
 
@@ -21,6 +21,19 @@ namespace mold
     struct RGB
     {
         Float3D R, G, B;
+    };
+
+    struct Clock
+    {
+        uint32_t last_tick_time = 0;
+        float delta = 0;
+
+        void tick()
+        {
+            uint32_t tick_time = SDL_GetTicks();
+            delta = (tick_time - last_tick_time) / 1000.0f;
+            last_tick_time = tick_time;
+        }
     };
 
     namespace objects
@@ -66,13 +79,19 @@ namespace mold
 
     namespace core
     {
-        namespace input {
-            bool* GetKeyStates();
+        namespace input
+        {
+            bool *GetKeyStates();
         };
 
         void Init(objects::Camera *camera, void (*draw)());
         void Init(objects::Camera *camera, void (*draw)(), int width, int height);
         void Run();
+
+        namespace time
+        {
+            float GetDeltaTime();
+        };
     };
 
 };

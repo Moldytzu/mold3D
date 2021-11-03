@@ -4,6 +4,7 @@ SDL_Window *Window;
 mold::objects::Camera *userCam; //user camera
 void (*userDraw)();             //user redraw function
 bool keys[0xFFFF];              //keys pressed
+mold::Clock clock;              //global clock used for delta time calculation
 
 void mold::core::Init(objects::Camera *camera, void (*draw)(), int width, int height)
 {
@@ -35,6 +36,8 @@ void mold::core::Run()
     bool Running = 1;
     while (Running)
     {
+        clock.tick();
+
         SDL_Event Event;
         while (SDL_PollEvent(&Event))
         {
@@ -54,6 +57,11 @@ void mold::core::Run()
             }
         }
 
+        char windowTitle[1024];
+        sprintf(windowTitle,"mold3D : %d FPS", (int)(1.0f / clock.delta));
+
+        SDL_SetWindowTitle(Window,windowTitle);
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         userCam->Draw();
@@ -61,10 +69,15 @@ void mold::core::Run()
         userDraw();
 
         SDL_GL_SwapWindow(Window);
+        SDL_Delay(1);
     }
     //glutMainLoop(); // do the main loop
 }
 
 bool* mold::core::input::GetKeyStates() {
     return keys;
+}
+
+float mold::core::time::GetDeltaTime() {
+    return clock.delta;
 }
