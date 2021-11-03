@@ -20,6 +20,7 @@ void mold::core::Init(objects::Camera *camera, void (*draw)(), int width, int he
     glMatrixMode(GL_MODELVIEW);
 
     glEnable(GL_DEPTH_TEST);
+    SDL_GL_SetSwapInterval(0);
 
     //user things
     userCam = camera;
@@ -57,6 +58,11 @@ void mold::core::Run()
             }
         }
 
+        if((int)(1.0f / clock.delta) < 0) {
+            SDL_Delay(0);
+            continue;
+        }
+
         char windowTitle[1024];
         sprintf(windowTitle,"mold3D : %d FPS", (int)(1.0f / clock.delta));
 
@@ -67,6 +73,8 @@ void mold::core::Run()
         userCam->Draw();
 
         userDraw();
+
+        glFlush();
 
         SDL_GL_SwapWindow(Window);
     }
