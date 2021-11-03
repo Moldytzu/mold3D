@@ -2,14 +2,14 @@
 
 using namespace mold::core;
 
-void EventSystem::AttachCallback(int type, void* callback) {
+void EventSystem::AttachCallback(EventType type, void* callback) {
     events.insert(std::make_pair(type,callback));
 }
 
-void EventSystem::DetachCallback(int type) {
+void EventSystem::DetachCallback(EventType type) {
     events.erase(events.find(type));
 }
 
-std::map<int, void*> EventSystem::GetMap() {
+std::map<EventType, void*> EventSystem::GetMap() {
     return events;
 }

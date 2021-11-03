@@ -2,11 +2,11 @@
 
 SDL_Window *Window;
 mold::render::objects::Camera *userCam; //user camera
-void (*userDraw)();             //user redraw function
-bool keys[0xFFFF];              //keys pressed
-mold::Clock clock;              //global clock used for delta time calculation
+mold::core::EventSystem *events;        //event system
+bool keys[0xFFFF];                      //keys pressed
+mold::Clock clock;                      //global clock used for delta time calculation
 
-void mold::core::Init(mold::render::objects::Camera *camera, void (*draw)(), int width, int height)
+void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem, int width, int height)
 {
     Window = SDL_CreateWindow("mold3D", 0, 0, width, height, SDL_WINDOW_OPENGL);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 128);
@@ -24,12 +24,12 @@ void mold::core::Init(mold::render::objects::Camera *camera, void (*draw)(), int
 
     //user things
     userCam = camera;
-    userDraw = draw;
+    events = eventSystem;
 }
 
-void mold::core::Init(mold::render::objects::Camera *camera, void (*draw)())
+void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem)
 {
-    Init(camera, draw, 800, 600);
+    Init(camera, eventSystem, 800, 600);
 }
 
 void mold::core::Run()
@@ -55,21 +55,22 @@ void mold::core::Run()
                 return;
         }
 
-        if((int)(1.0f / clock.delta) < 0) {
+        if ((int)(1.0f / clock.delta) < 0)
+        {
             SDL_Delay(0);
             continue;
         }
 
         char windowTitle[1024];
-        sprintf(windowTitle,"mold3D : %d FPS", (int)(1.0f / clock.delta));
+        sprintf(windowTitle, "mold3D : %d FPS", (int)(1.0f / clock.delta));
 
-        SDL_SetWindowTitle(Window,windowTitle);
+        SDL_SetWindowTitle(Window, windowTitle);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         userCam->Draw();
 
-        userDraw();
+        ((void (*)(void)) events->GetMap()[EventType::Redraw])();
 
         glFlush();
 
@@ -77,10 +78,12 @@ void mold::core::Run()
     }
 }
 
-bool* mold::core::input::GetKeyStates() {
+bool *mold::core::input::GetKeyStates()
+{
     return keys;
 }
 
-float mold::core::time::GetDeltaTime() {
+float mold::core::time::GetDeltaTime()
+{
     return clock.delta;
 }

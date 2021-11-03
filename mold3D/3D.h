@@ -7,12 +7,14 @@
 
 namespace mold
 {
-#define DIRECTION_FORWARD 0
-#define DIRECTION_BACKWARD 1
-#define DIRECTION_LEFT 2
-#define DIRECTION_RIGHT 3
-
     typedef GLfloat Float3D;
+
+    enum Direction {
+        Forward,
+        Backward,
+        Left,
+        Right,
+    };
 
     struct Point3D
     {
@@ -74,7 +76,7 @@ namespace mold
                 Camera();
                 Camera(Point3D point);
                 virtual void Draw();
-                void Move(int direction, Float3D value);
+                void Move(Direction direction, Float3D value);
                 int lastOP = 0;
                 Float3D AngleZ = -1.0f, AngleX = 0, Angle = 0;
             };
@@ -88,24 +90,28 @@ namespace mold
             bool *GetKeyStates();
         };
 
-        void Init(mold::render::objects::Camera *camera, void (*draw)());
-        void Init(mold::render::objects::Camera *camera, void (*draw)(), int width, int height);
-        void Run();
-
         namespace time
         {
             float GetDeltaTime();
         };
 
+        enum EventType {
+            Redraw = 1,
+        };
+
         class EventSystem
         {
             public:
-                void AttachCallback(int type, void* callback);
-                void DetachCallback(int type);
-                std::map<int, void*> GetMap();
+                void AttachCallback(EventType type, void* callback);
+                void DetachCallback(EventType type);
+                std::map<EventType, void*> GetMap();
             private:
-                std::map<int, void*> events; //type, callback
+                std::map<EventType, void*> events; //type, callback
         };
+
+        void Init(mold::render::objects::Camera *camera, EventSystem* eventSystem);
+        void Init(mold::render::objects::Camera *camera, EventSystem* eventSystem, int width, int height);
+        void Run();
     };
 
 };

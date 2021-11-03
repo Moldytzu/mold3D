@@ -14,32 +14,28 @@ void Camera::Draw()
               0.0f, coords.Y, 0.0f);                          // up -> 0
 }
 
-void Camera::Move(int direction, Float3D value)
+void Camera::Move(Direction direction, Float3D value)
 {
-    if (direction == DIRECTION_FORWARD)
+    if (direction == Direction::Forward)
     {
         coords.X += AngleX * value;
         coords.Z += AngleZ * value;
-        lastOP = 'w';
     }
-    if (direction == DIRECTION_RIGHT)
+    if (direction == Direction::Right)
     {
         Angle += value;
         AngleX = sin(Angle);
         AngleZ = -cos(Angle);
-        lastOP = 'd';
     }
-    if (direction == DIRECTION_LEFT)
+    if (direction == Direction::Left)
     {
         Angle -= value;
         AngleX = sin(Angle);
         AngleZ = -cos(Angle);
-        lastOP = 'a';
     }
-    if (direction == DIRECTION_BACKWARD)
+    if (direction == Direction::Backward)
     {
         coords.X -= AngleX * value;
         coords.Z -= AngleZ * value;
-        lastOP = 's';
     }
 }
