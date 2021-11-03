@@ -5,6 +5,8 @@ mold::objects::Camera camera;
 
 void draw()
 {
+   camera.Move(DIRECTION_RIGHT,0.1f);
+
    // Draw ground
    glColor3f(0, 1, 0);
    glBegin(GL_QUADS);

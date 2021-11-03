@@ -6,6 +6,11 @@
 
 namespace mold
 {
+    #define DIRECTION_FORWARD 0
+    #define DIRECTION_BACKWARD 1
+    #define DIRECTION_LEFT 2
+    #define DIRECTION_RIGHT 3
+
     typedef GLfloat Float3D;
 
     struct Point3D
@@ -53,7 +58,7 @@ namespace mold
             Camera();
             Camera(Point3D point);
             virtual void Draw();
-            void Update(bool *keys);
+            void Move(int direction, Float3D value);
             int lastOP = 0;
             Float3D AngleZ = -1.0f, AngleX = 0, Angle = 0;
         };
