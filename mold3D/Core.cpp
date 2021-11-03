@@ -8,7 +8,16 @@ mold::Clock clock;                      //global clock used for delta time calcu
 
 void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem, int width, int height)
 {
+    mold::core::logging::Info("Starting mold3D");
+    mold::core::logging::Info("Starting SDL subsystem");
     Window = SDL_CreateWindow("mold3D", 0, 0, width, height, SDL_WINDOW_OPENGL);
+
+    if(Window == NULL) {
+        mold::core::logging::Error("Couldn't create a window!");
+        exit(-1);
+    }
+
+    mold::core::logging::Info("Setting up the OpenGL subsystem");
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 128);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GLContext Context = SDL_GL_CreateContext(Window);
@@ -22,9 +31,9 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
     glEnable(GL_DEPTH_TEST);
     SDL_GL_SetSwapInterval(0);
 
-    //user things
     userCam = camera;
     events = eventSystem;
+    mold::core::logging::Info("Started the engine!");
 }
 
 void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem)
@@ -34,6 +43,7 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
 
 void mold::core::Run()
 {
+    mold::core::logging::Info("Starting the game");
     while (1)
     {
         clock.tick();

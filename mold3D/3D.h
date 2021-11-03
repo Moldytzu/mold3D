@@ -103,6 +103,13 @@ namespace mold
             float GetDeltaTime();
         };
 
+        namespace logging
+        {
+            void Info(const char* text);
+            void Warn(const char* text);
+            void Error(const char* text);
+        };
+
         enum EventType {
             Redraw = 1,
         };
