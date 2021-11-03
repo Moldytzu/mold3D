@@ -2,6 +2,8 @@
 mold::render::objects::Pyramid pyramid;
 mold::render::objects::Cube cube;
 mold::render::objects::Camera camera;
+mold::render::objects::Plane ground;
+
 mold::core::EventSystem eventSystem;
 
 void Redraw()
@@ -21,23 +23,18 @@ void Redraw()
    if(keys['s'] || keys['S'])
       camera.Move(mold::Direction::Backward, 5 * delta);
 
-   // Draw ground
-   glColor3f(0, 1, 0);
-   glBegin(GL_QUADS);
-   glVertex3f(-10.0f, 0, -10.0f);
-   glVertex3f(-10.0f, 0, 10.0f);
-   glVertex3f(10.0f, 0, 10.0f);
-   glVertex3f(10.0f, 0, -10.0f);
-   glEnd();
 
    cube.Draw();
    pyramid.Draw();
+   ground.Draw();
 }
 
 int main()
 {
    pyramid = mold::render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 1.0f);
    cube = mold::render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
+   ground = mold::render::objects::Plane({0,0,0}, {0.0f, 1.0f, 0.0f}, 3.0f);
+
    camera = mold::render::objects::Camera({0.0f, 1.0f, 1.5f});
 
    eventSystem.AttachCallback(mold::core::EventType::Redraw,(void*)Redraw);

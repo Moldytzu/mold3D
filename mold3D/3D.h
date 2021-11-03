@@ -70,6 +70,14 @@ namespace mold
                 virtual void Draw();
             };
 
+            class Plane : public GameObject
+            {
+            public:
+                Plane();
+                Plane(Point3D point, RGB color, Float3D Size);
+                virtual void Draw();
+            };
+
             class Camera : public GameObject
             {
             public:
