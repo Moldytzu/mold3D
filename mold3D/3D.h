@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <math.h>
+#include <map>
 
 namespace mold
 {
@@ -94,6 +95,16 @@ namespace mold
         namespace time
         {
             float GetDeltaTime();
+        };
+
+        class EventSystem
+        {
+            public:
+                void AttachCallback(int type, void* callback);
+                void DetachCallback(int type);
+                std::map<int, void*> GetMap();
+            private:
+                std::map<int, void*> events; //type, callback
         };
     };
 

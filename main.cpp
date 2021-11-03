@@ -39,6 +39,14 @@ int main()
    cube = mold::render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
    camera = mold::render::objects::Camera({0.0f, 1.0f, 1.5f});
 
+   mold::core::EventSystem e;
+   e.AttachCallback(610,(void*)10);
+   std::map<int, void*> m = e.GetMap();
+   printf("%d\n",m[610]);
+   e.DetachCallback(610);
+   m = e.GetMap();
+   printf("%d\n",m[610]);
+
    mold::core::Init(&camera, draw, 640, 480);
    mold::core::Run();
    return 0;

@@ -5,6 +5,7 @@ g++ -c Pyramid.cpp -I../
 g++ -c Cube.cpp -I../
 g++ -c Core.cpp -I../
 g++ -c Camera.cpp -I../
+g++ -c EventSystem.cpp -I../
 
 cd ..
 
