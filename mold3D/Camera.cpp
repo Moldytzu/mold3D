@@ -1,6 +1,6 @@
 #include <mold3D/3D.h>
 
-using namespace mold::objects;
+using namespace mold::render::objects;
 
 Camera::Camera() {}
 

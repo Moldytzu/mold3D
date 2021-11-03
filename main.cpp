@@ -1,7 +1,7 @@
 #include "mold3D/3D.h"
-mold::objects::Pyramid pyramid;
-mold::objects::Cube cube;
-mold::objects::Camera camera;
+mold::render::objects::Pyramid pyramid;
+mold::render::objects::Cube cube;
+mold::render::objects::Camera camera;
 
 void draw()
 {
@@ -29,15 +29,15 @@ void draw()
    glVertex3f(10.0f, 0, -10.0f);
    glEnd();
 
-   //cube.Draw();
+   cube.Draw();
    pyramid.Draw();
 }
 
 int main()
 {
-   pyramid = mold::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 1.0f);
-   cube = mold::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
-   camera = mold::objects::Camera({0.0f, 1.0f, 1.5f});
+   pyramid = mold::render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 1.0f);
+   cube = mold::render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
+   camera = mold::render::objects::Camera({0.0f, 1.0f, 1.5f});
 
    mold::core::Init(&camera, draw, 640, 480);
    mold::core::Run();

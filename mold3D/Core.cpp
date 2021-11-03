@@ -1,12 +1,12 @@
 #include <mold3D/3D.h>
 
 SDL_Window *Window;
-mold::objects::Camera *userCam; //user camera
+mold::render::objects::Camera *userCam; //user camera
 void (*userDraw)();             //user redraw function
 bool keys[0xFFFF];              //keys pressed
 mold::Clock clock;              //global clock used for delta time calculation
 
-void mold::core::Init(objects::Camera *camera, void (*draw)(), int width, int height)
+void mold::core::Init(mold::render::objects::Camera *camera, void (*draw)(), int width, int height)
 {
     Window = SDL_CreateWindow("mold3D", 0, 0, width, height, SDL_WINDOW_OPENGL);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 128);
@@ -27,15 +27,14 @@ void mold::core::Init(objects::Camera *camera, void (*draw)(), int width, int he
     userDraw = draw;
 }
 
-void mold::core::Init(objects::Camera *camera, void (*draw)())
+void mold::core::Init(mold::render::objects::Camera *camera, void (*draw)())
 {
     Init(camera, draw, 800, 600);
 }
 
 void mold::core::Run()
 {
-    bool Running = 1;
-    while (Running)
+    while (1)
     {
         clock.tick();
 
@@ -53,9 +52,7 @@ void mold::core::Run()
                     keys[Event.key.keysym.sym] = false;
             }
             else if (Event.type == SDL_QUIT)
-            {
-                Running = 0;
-            }
+                return;
         }
 
         if((int)(1.0f / clock.delta) < 0) {
@@ -78,7 +75,6 @@ void mold::core::Run()
 
         SDL_GL_SwapWindow(Window);
     }
-    //glutMainLoop(); // do the main loop
 }
 
 bool* mold::core::input::GetKeyStates() {

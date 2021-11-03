@@ -1,13 +1,10 @@
 #include <mold3D/3D.h>
 
-using namespace mold::objects;
+using namespace mold::render::objects;
 
 Pyramid::Pyramid() {}
 
-Pyramid::Pyramid(Point3D point, RGB color, Float3D Size) : GameObject({point.X,point.Y+Size/2,point.Z}, color, Size/2)
-{
-
-}
+Pyramid::Pyramid(Point3D point, RGB color, Float3D Size) : GameObject({point.X,point.Y+Size/2,point.Z}, color, Size/2) {}
 
 void Pyramid::Draw()
 {
