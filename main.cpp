@@ -31,6 +31,11 @@ void Redraw()
    ground.Draw();
 }
 
+void Resize()
+{
+   mold::render::SetProjection(90.0f);
+}
+
 int main()
 {
    mold::core::Init(&camera, &eventSystem, 800, 600);
@@ -43,6 +48,7 @@ int main()
    camera = mold::render::objects::Camera({0.0f, 1.0f, 1.5f});
 
    eventSystem.AttachCallback(mold::core::EventType::Redraw, (void *)Redraw);
+   eventSystem.AttachCallback(mold::core::EventType::Resize, (void *)Resize);
 
    mold::core::Run();
    return 0;

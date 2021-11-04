@@ -1,18 +1,23 @@
 #include <mold3D/3D.h>
 
+#define CALL_EVENT(x) ((void (*)(void))events->GetMap()[x])()
+
 SDL_Window *Window;
 mold::render::objects::Camera *userCam; //user camera
 mold::core::EventSystem *events;        //event system
 bool keys[0xFFFF];                      //keys pressed
 mold::Clock clock;                      //global clock used for delta time calculation
 
+void stub() {}
+
 void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem, int width, int height)
 {
     mold::core::logging::Info("Starting mold3D");
     mold::core::logging::Info("Starting SDL subsystem");
-    Window = SDL_CreateWindow("mold3D", 0, 0, width, height, SDL_WINDOW_OPENGL);
+    Window = SDL_CreateWindow("mold3D", 0, 0, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
-    if(Window == NULL) {
+    if (Window == NULL)
+    {
         mold::core::logging::Error("Couldn't create a window!");
         exit(-1);
     }
@@ -27,6 +32,12 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
 
     userCam = camera;
     events = eventSystem;
+
+    mold::core::logging::Info("Setting up the event system");
+
+    eventSystem->AttachCallback(Redraw,(void*)stub);
+    eventSystem->AttachCallback(Resize,(void*)stub);
+
     mold::core::logging::Info("Started the engine!");
 }
 
@@ -55,6 +66,11 @@ void mold::core::Run()
                 if (Event.key.keysym.sym < 0xFFFF)
                     keys[Event.key.keysym.sym] = false;
             }
+            else if (Event.type == SDL_WINDOWEVENT)
+            {
+                if (Event.window.event == SDL_WINDOWEVENT_RESIZED)
+                    CALL_EVENT(EventType::Resize);
+            }
             else if (Event.type == SDL_QUIT)
                 return;
         }
@@ -74,7 +90,7 @@ void mold::core::Run()
 
         userCam->Draw();
 
-        ((void (*)(void)) events->GetMap()[EventType::Redraw])();
+        CALL_EVENT(EventType::Redraw);
 
         glFlush();
 
@@ -92,7 +108,7 @@ float mold::core::time::GetDeltaTime()
     return clock.delta;
 }
 
-SDL_Window* mold::core::GetWindow()
+SDL_Window *mold::core::GetWindow()
 {
     return Window;
 }
