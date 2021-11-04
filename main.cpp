@@ -36,6 +36,11 @@ void Resize()
    mold::render::SetProjection(90.0f);
 }
 
+bool BeforeExit()
+{
+   return true; // prevent exit
+}
+
 int main()
 {
    mold::core::Init(&camera, &eventSystem, 800, 600);
@@ -49,6 +54,7 @@ int main()
 
    eventSystem.AttachCallback(mold::core::EventType::Redraw, (void *)Redraw);
    eventSystem.AttachCallback(mold::core::EventType::Resize, (void *)Resize);
+   eventSystem.AttachCallback(mold::core::EventType::BeforeExit, (void *)BeforeExit);
 
    mold::core::Run();
    return 0;

@@ -115,6 +115,7 @@ namespace mold
         enum EventType {
             Redraw = 1,
             Resize = 2,
+            BeforeExit = 3,
         };
 
         class EventSystem

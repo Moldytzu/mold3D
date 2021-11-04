@@ -37,6 +37,7 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
 
     eventSystem->AttachCallback(Redraw,(void*)stub);
     eventSystem->AttachCallback(Resize,(void*)stub);
+    eventSystem->AttachCallback(BeforeExit,(void*)stub);
 
     mold::core::logging::Info("Started the engine!");
 }
@@ -72,7 +73,8 @@ void mold::core::Run()
                     CALL_EVENT(EventType::Resize);
             }
             else if (Event.type == SDL_QUIT)
-                return;
+                if (!((bool (*)(void))events->GetMap()[mold::core::EventType::BeforeExit])())
+                    return;
         }
 
         if ((int)(1.0f / clock.delta) < 0)
