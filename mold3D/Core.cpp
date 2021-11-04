@@ -22,12 +22,6 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GLContext Context = SDL_GL_CreateContext(Window);
 
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glViewport(0, 0, width, height);
-    gluPerspective(75.0f, width * 1.0 / height, 0.1f, 100.0f);
-    glMatrixMode(GL_MODELVIEW);
-
     glEnable(GL_DEPTH_TEST);
     SDL_GL_SetSwapInterval(0);
 
@@ -96,4 +90,9 @@ bool *mold::core::input::GetKeyStates()
 float mold::core::time::GetDeltaTime()
 {
     return clock.delta;
+}
+
+SDL_Window* mold::core::GetWindow()
+{
+    return Window;
 }

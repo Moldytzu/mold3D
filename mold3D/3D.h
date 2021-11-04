@@ -89,6 +89,8 @@ namespace mold
                 Float3D AngleZ = -1.0f, AngleX = 0, Angle = 0;
             };
         };
+
+        void SetProjection(Float3D fov);
     };
 
     namespace core
@@ -127,6 +129,8 @@ namespace mold
         void Init(mold::render::objects::Camera *camera, EventSystem* eventSystem);
         void Init(mold::render::objects::Camera *camera, EventSystem* eventSystem, int width, int height);
         void Run();
+
+        SDL_Window* GetWindow();
     };
 
 };
