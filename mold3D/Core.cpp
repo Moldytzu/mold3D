@@ -35,9 +35,9 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
 
     mold::core::logging::Info("Setting up the event system");
 
-    eventSystem->AttachCallback(Redraw,(void*)stub);
-    eventSystem->AttachCallback(Resize,(void*)stub);
-    eventSystem->AttachCallback(BeforeExit,(void*)stub);
+    eventSystem->AttachCallback(Redraw, (void *)stub);
+    eventSystem->AttachCallback(Resize, (void *)stub);
+    eventSystem->AttachCallback(BeforeExit, (void *)stub);
 
     mold::core::logging::Info("Started the engine!");
 }

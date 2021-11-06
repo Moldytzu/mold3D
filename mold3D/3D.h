@@ -9,7 +9,8 @@ namespace mold
 {
     typedef GLfloat Float3D;
 
-    enum Direction {
+    enum Direction
+    {
         Forward,
         Backward,
         Left,
@@ -37,6 +38,13 @@ namespace mold
             delta = (tick_time - last_tick_time) / 1000.0f;
             last_tick_time = tick_time;
         }
+    };
+
+    namespace profiler
+    {
+        void TrackAllocMemory(size_t bytes);
+        void TrackFreeMemory(size_t bytes);
+        size_t GetTrackedMemory();
     };
 
     namespace render
@@ -107,12 +115,13 @@ namespace mold
 
         namespace logging
         {
-            void Info(const char* text);
-            void Warn(const char* text);
-            void Error(const char* text);
+            void Info(const char *text);
+            void Warn(const char *text);
+            void Error(const char *text);
         };
 
-        enum EventType {
+        enum EventType
+        {
             Redraw = 1,
             Resize = 2,
             BeforeExit = 3,
@@ -120,19 +129,20 @@ namespace mold
 
         class EventSystem
         {
-            public:
-                void AttachCallback(EventType type, void* callback);
-                void DetachCallback(EventType type);
-                std::map<EventType, void*> GetMap();
-            private:
-                std::map<EventType, void*> events; //type, callback
+        public:
+            void AttachCallback(EventType type, void *callback);
+            void DetachCallback(EventType type);
+            std::map<EventType, void *> GetMap();
+
+        private:
+            std::map<EventType, void *> events; //type, callback
         };
 
-        void Init(mold::render::objects::Camera *camera, EventSystem* eventSystem);
-        void Init(mold::render::objects::Camera *camera, EventSystem* eventSystem, int width, int height);
+        void Init(mold::render::objects::Camera *camera, EventSystem *eventSystem);
+        void Init(mold::render::objects::Camera *camera, EventSystem *eventSystem, int width, int height);
         void Run();
 
-        SDL_Window* GetWindow();
+        SDL_Window *GetWindow();
     };
 
 };

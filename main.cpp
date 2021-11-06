@@ -38,7 +38,7 @@ void Resize()
 
 bool BeforeExit()
 {
-   return true; // prevent exit
+   return false; // don't prevent exit
 }
 
 int main()
