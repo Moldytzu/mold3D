@@ -15,16 +15,16 @@ void Redraw()
    float delta = mold::core::time::GetDeltaTime();
 
    if (keys['d'] || keys['D'])
-      camera.Move(mold::Direction::Right, turnSpeed * delta);
+      camera.Rotate(mold::Direction::Right, turnSpeed * delta);
 
    if (keys['a'] || keys['A'])
-      camera.Move(mold::Direction::Left, turnSpeed * delta);
+      camera.Rotate(mold::Direction::Left, turnSpeed * delta);
 
    if (keys['w'] || keys['W'])
-      camera.Move(mold::Direction::Forward, moveSpeed * delta);
+      camera.Rotate(mold::Direction::Forward, turnSpeed * delta);
 
    if (keys['s'] || keys['S'])
-      camera.Move(mold::Direction::Backward, moveSpeed * delta);
+      camera.Rotate(mold::Direction::Backward, turnSpeed * delta);
 
    cube.Draw();
    pyramid.Draw();

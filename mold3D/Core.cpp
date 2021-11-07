@@ -77,26 +77,23 @@ void mold::core::Run()
                     return;
         }
 
-        if ((int)(1.0f / clock.delta) < 0)
+        if (clock.delta > 0)
         {
-            SDL_Delay(0);
-            continue;
+            char windowTitle[1024];
+            sprintf(windowTitle, "mold3D : %d FPS", (int)(1.0f / clock.delta));
+
+            SDL_SetWindowTitle(Window, windowTitle);
+
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            userCam->Draw();
+
+            CALL_EVENT(EventType::Redraw);
+
+            glFlush();
+
+            SDL_GL_SwapWindow(Window);
         }
-
-        char windowTitle[1024];
-        sprintf(windowTitle, "mold3D : %d FPS", (int)(1.0f / clock.delta));
-
-        SDL_SetWindowTitle(Window, windowTitle);
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        userCam->Draw();
-
-        CALL_EVENT(EventType::Redraw);
-
-        glFlush();
-
-        SDL_GL_SwapWindow(Window);
     }
 }
 

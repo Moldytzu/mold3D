@@ -1,9 +1,10 @@
 #pragma once
-#include <GL/glut.h>
+#include <GL/glu.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <math.h>
 #include <map>
+#include <algorithm>
 
 namespace mold
 {
@@ -93,8 +94,8 @@ namespace mold
                 Camera(Point3D point);
                 virtual void Draw();
                 void Move(Direction direction, Float3D value);
-                int lastOP = 0;
-                Float3D AngleZ = -1.0f, AngleX = 0, Angle = 0;
+                void Rotate(Direction direction, Float3D value);
+                Float3D AngleZ = -1.0f, AngleX = 0, AngleY = 0, Angle = 0, Angle2 = 0;
             };
         };
 
