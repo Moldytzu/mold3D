@@ -34,6 +34,15 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
     userCam = camera;
     events = eventSystem;
 
+    mold::core::logging::Info("Setting up the ImGui subsystem");
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO &io = ImGui::GetIO();
+    (void)io;
+    ImGui::StyleColorsDark();
+    ImGui_ImplSDL2_InitForOpenGL(mold::core::GetWindow(), mold::core::GetGLContext());
+    ImGui_ImplOpenGL2_Init();
+
     mold::core::logging::Info("Setting up the event system");
 
     eventSystem->AttachCallback(Redraw, (void *)stub);
@@ -59,6 +68,7 @@ void mold::core::Run()
         SDL_Event Event;
         while (SDL_PollEvent(&Event))
         {
+            ImGui_ImplSDL2_ProcessEvent(&Event);
             if (Event.type == SDL_KEYDOWN)
             {
                 keys[Event.key.keysym.sym] = true;
@@ -88,7 +98,14 @@ void mold::core::Run()
 
             userCam->Draw();
 
+            ImGui_ImplOpenGL2_NewFrame();
+            ImGui_ImplSDL2_NewFrame();
+            ImGui::NewFrame();
+
             CALL_EVENT(EventType::Redraw);
+
+            ImGui::Render();
+            ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
             glFlush();
 

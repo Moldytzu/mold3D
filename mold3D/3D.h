@@ -2,6 +2,8 @@
 #include <GL/glu.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
+#include <backends/imgui_impl_opengl2.h>
+#include <backends/imgui_impl_sdl.h>
 #include <math.h>
 #include <map>
 #include <algorithm>
