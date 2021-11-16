@@ -39,6 +39,7 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
     (void)io;
+    io.IniFilename = NULL;
     ImGui::StyleColorsDark();
     ImGui_ImplSDL2_InitForOpenGL(mold::core::GetWindow(), mold::core::GetGLContext());
     ImGui_ImplOpenGL2_Init();

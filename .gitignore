@@ -2,3 +2,4 @@
 game
 *.o
 imgui.ini
+push.sh

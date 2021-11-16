@@ -4367,7 +4367,7 @@ static void AddWindowToDrawData(ImGuiWindow* window, int layer)
 
 static inline int GetWindowDisplayLayer(ImGuiWindow* window)
 {
-    return (window->Flags & ImGuiWindowFlags_Tooltip) ? 1 : 0;
+    return 0;
 }
 
 // Layer is locked for the root window, however child windows may use a different viewport (e.g. extruding menu)
