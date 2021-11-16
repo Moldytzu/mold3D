@@ -144,6 +144,7 @@ namespace mold
         void Run();
 
         SDL_Window *GetWindow();
+        SDL_GLContext GetGLContext();
     };
 
 };

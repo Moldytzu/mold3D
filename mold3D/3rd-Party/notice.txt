@@ -1,0 +1,1 @@
+This project uses a modified version of https://github.com/ocornut/imgui. It is licensed under the MIT License. See imgui/LICENSE.txt.

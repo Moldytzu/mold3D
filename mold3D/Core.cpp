@@ -3,9 +3,10 @@
 #define CALL_EVENT(x) ((void (*)(void))events->GetMap()[x])()
 
 SDL_Window *Window;
+SDL_GLContext Context;
 mold::render::objects::Camera *userCam; //user camera
 mold::core::EventSystem *events;        //event system
-bool keys[0xFFFF];                      //keys pressed
+bool *keys;                             //keys pressed
 mold::Clock clock;                      //global clock used for delta time calculation
 
 void stub() {}
@@ -25,7 +26,7 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
     mold::core::logging::Info("Setting up the OpenGL subsystem");
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 128);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    SDL_GLContext Context = SDL_GL_CreateContext(Window);
+    Context = SDL_GL_CreateContext(Window);
 
     glEnable(GL_DEPTH_TEST);
     SDL_GL_SetSwapInterval(0);
@@ -40,6 +41,7 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
     eventSystem->AttachCallback(BeforeExit, (void *)stub);
 
     mold::core::logging::Info("Started the engine!");
+    keys = new bool[1073742000];
 }
 
 void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem)
@@ -59,13 +61,11 @@ void mold::core::Run()
         {
             if (Event.type == SDL_KEYDOWN)
             {
-                if (Event.key.keysym.sym < 0xFFFF)
-                    keys[Event.key.keysym.sym] = true;
+                keys[Event.key.keysym.sym] = true;
             }
             else if (Event.type == SDL_KEYUP)
             {
-                if (Event.key.keysym.sym < 0xFFFF)
-                    keys[Event.key.keysym.sym] = false;
+                keys[Event.key.keysym.sym] = false;
             }
             else if (Event.type == SDL_WINDOWEVENT)
             {
@@ -110,4 +110,9 @@ float mold::core::time::GetDeltaTime()
 SDL_Window *mold::core::GetWindow()
 {
     return Window;
+}
+
+SDL_GLContext mold::core::GetGLContext()
+{
+    return Context;
 }
