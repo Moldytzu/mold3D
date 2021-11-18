@@ -8,8 +8,13 @@ mold::render::objects::Camera *userCam; //user camera
 mold::core::EventSystem *events;        //event system
 bool *keys;                             //keys pressed
 mold::Clock clock;                      //global clock used for delta time calculation
+mold::gui::Console console;
 
 void stub() {}
+
+mold::gui::Console* mold::gui::GetConsole() {
+    return &console;
+}
 
 void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem, int width, int height)
 {
@@ -29,7 +34,6 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
     Context = SDL_GL_CreateContext(Window);
 
     glEnable(GL_DEPTH_TEST);
-    SDL_GL_SetSwapInterval(0);
 
     userCam = camera;
     events = eventSystem;
@@ -104,6 +108,7 @@ void mold::core::Run()
             ImGui::NewFrame();
 
             CALL_EVENT(EventType::Redraw);
+            console.Draw();
 
             ImGui::Render();
             ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());

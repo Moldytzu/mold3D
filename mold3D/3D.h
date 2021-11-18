@@ -149,4 +149,29 @@ namespace mold
         SDL_GLContext GetGLContext();
     };
 
+    namespace gui
+    {
+        class Console
+        {
+            public:
+            char InputBuf[512];
+            ImVector<char *> Items;
+            ImVector<const char *> Commands;
+            ImVector<char *> History;
+            int HistoryPos;
+            bool AutoScroll;
+            bool ScrollToBottom;
+            bool Enabled;
+            Console();
+            ~Console();
+            void ClearLog();
+            void AddLog(const char *fmt, ...) IM_FMTARGS(2);
+            void Draw();
+            void ExecCommand(const char *command_line);
+            int TextEditCallback(ImGuiInputTextCallbackData *data);
+        };
+
+        Console* GetConsole();
+    };
+
 };
