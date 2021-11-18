@@ -50,8 +50,6 @@ int main()
    mold::core::Init(&camera, &eventSystem, 800, 600);
    mold::render::SetProjection(90.0f);
 
-   mold::gui::GetConsole()->Enabled = true;
-
    pyramid = mold::render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 1.0f);
    cube = mold::render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
    ground = mold::render::objects::Plane({0, 0, 0}, {0.0f, 1.0f, 0.0f}, 3.0f);

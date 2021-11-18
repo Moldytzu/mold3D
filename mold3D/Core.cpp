@@ -80,6 +80,8 @@ void mold::core::Run()
             }
             else if (Event.type == SDL_KEYUP)
             {
+                if(Event.key.keysym.sym == '`' || Event.key.keysym.sym == '~')
+                    console.Enabled = !console.Enabled;
                 keys[Event.key.keysym.sym] = false;
             }
             else if (Event.type == SDL_WINDOWEVENT)
