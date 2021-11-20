@@ -7,6 +7,7 @@
 #include <math.h>
 #include <map>
 #include <algorithm>
+#include <chrono>
 
 namespace mold
 {

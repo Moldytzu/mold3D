@@ -21,8 +21,6 @@ Console::Console()
     Commands.push_back("Quit");
     AutoScroll = true;
     ScrollToBottom = false;
-
-    AddLog("Select the input box and then type \"help\" to display all commands.\n\n");
 }
 Console::~Console()
 {
