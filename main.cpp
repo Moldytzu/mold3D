@@ -17,16 +17,16 @@ void Redraw()
 
    if (!mold::gui::GetConsole()->Enabled)
    {
-      if (keys[SDL_KeyCode::SDLK_RIGHT] || keys['D'] || keys['d'])
+      if (keys[mold::core::input::Key::_RIGHT] || keys['D'] || keys['d'])
          camera.Rotate(mold::Direction::Right, turnSpeed * delta);
 
-      if (keys[SDL_KeyCode::SDLK_LEFT] || keys['a'] || keys['A'])
+      if (keys[mold::core::input::Key::_LEFT] || keys['a'] || keys['A'])
          camera.Rotate(mold::Direction::Left, turnSpeed * delta);
 
-      if (keys[SDL_KeyCode::SDLK_UP] || keys['w'] || keys['W'])
+      if (keys[mold::core::input::Key::_UP] || keys['w'] || keys['W'])
          camera.Rotate(mold::Direction::Forward, turnSpeed * delta);
 
-      if (keys[SDL_KeyCode::SDLK_DOWN] || keys['s'] || keys['S'])
+      if (keys[mold::core::input::Key::_DOWN] || keys['s'] || keys['S'])
          camera.Rotate(mold::Direction::Backward, turnSpeed * delta);
    }
 
