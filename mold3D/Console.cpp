@@ -26,7 +26,7 @@ Console::Console()
 Console::~Console()
 {
     ClearLog();
-    for (int i = 0; i < History.Size; i++)
+    for (int i = 0; i < History.size(); i++)
         free(History[i]);
 }
 
@@ -70,7 +70,7 @@ static void Strtrim(char *s)
 
 void Console::ClearLog()
 {
-    for (int i = 0; i < Items.Size; i++)
+    for (int i = 0; i < Items.size(); i++)
         free(Items[i]);
     Items.clear();
 }
@@ -123,7 +123,7 @@ void Console::Draw()
     ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 1)); // Tighten spacing
     if (copy_to_clipboard)
         ImGui::LogToClipboard();
-    for (int i = 0; i < Items.Size; i++)
+    for (int i = 0; i < Items.size(); i++)
     {
         const char *item = Items[i];
 
@@ -184,7 +184,7 @@ void Console::ExecCommand(const char *command_line)
     // Insert into history. First find match and delete it so it can be pushed to the back.
     // This isn't trying to be smart or optimal.
     HistoryPos = -1;
-    for (int i = History.Size - 1; i >= 0; i--)
+    for (int i = History.size() - 1; i >= 0; i--)
         if (Stricmp(History[i], command_line) == 0)
         {
             free(History[i]);
@@ -201,13 +201,13 @@ void Console::ExecCommand(const char *command_line)
     else if (EQ("HELP"))
     {
         AddLog("Commands:");
-        for (int i = 0; i < Commands.Size; i++)
+        for (int i = 0; i < Commands.size(); i++)
             AddLog("- %s", Commands[i]);
     }
     else if (EQ("HISTORY"))
     {
-        int first = History.Size - 10;
-        for (int i = first > 0 ? first : 0; i < History.Size; i++)
+        int first = History.size() - 10;
+        for (int i = first > 0 ? first : 0; i < History.size(); i++)
             AddLog("%3d: %s\n", i, History[i]);
     }
     else if (EQ("CLOSE"))
@@ -247,16 +247,16 @@ int Console::TextEditCallback(ImGuiInputTextCallbackData *data)
 
         // Build a list of candidates
         ImVector<const char *> candidates;
-        for (int i = 0; i < Commands.Size; i++)
+        for (int i = 0; i < Commands.size(); i++)
             if (Strnicmp(Commands[i], word_start, (int)(word_end - word_start)) == 0)
                 candidates.push_back(Commands[i]);
 
-        if (candidates.Size == 0)
+        if (candidates.size() == 0)
         {
             // No match
             AddLog("No match for \"%.*s\"!\n", (int)(word_end - word_start), word_start);
         }
-        else if (candidates.Size == 1)
+        else if (candidates.size() == 1)
         {
             // Single match. Delete the beginning of the word and replace it entirely so we've got nice casing.
             data->DeleteChars((int)(word_start - data->Buf), (int)(word_end - word_start));
@@ -272,7 +272,7 @@ int Console::TextEditCallback(ImGuiInputTextCallbackData *data)
             {
                 int c = 0;
                 bool all_candidates_matches = true;
-                for (int i = 0; i < candidates.Size && all_candidates_matches; i++)
+                for (int i = 0; i < candidates.size() && all_candidates_matches; i++)
                     if (i == 0)
                         c = toupper(candidates[i][match_len]);
                     else if (c == 0 || c != toupper(candidates[i][match_len]))
@@ -290,7 +290,7 @@ int Console::TextEditCallback(ImGuiInputTextCallbackData *data)
 
             // List matches
             AddLog("Possible matches:\n");
-            for (int i = 0; i < candidates.Size; i++)
+            for (int i = 0; i < candidates.size(); i++)
                 AddLog("- %s\n", candidates[i]);
         }
 
@@ -303,14 +303,14 @@ int Console::TextEditCallback(ImGuiInputTextCallbackData *data)
         if (data->EventKey == ImGuiKey_UpArrow)
         {
             if (HistoryPos == -1)
-                HistoryPos = History.Size - 1;
+                HistoryPos = History.size() - 1;
             else if (HistoryPos > 0)
                 HistoryPos--;
         }
         else if (data->EventKey == ImGuiKey_DownArrow)
         {
             if (HistoryPos != -1)
-                if (++HistoryPos >= History.Size)
+                if (++HistoryPos >= History.size())
                     HistoryPos = -1;
         }
 

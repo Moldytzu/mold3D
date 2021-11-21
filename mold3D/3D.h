@@ -147,10 +147,9 @@ namespace mold
         void Init(mold::render::objects::Camera *camera, EventSystem *eventSystem, int width, int height);
         void Run();
 
-        SDL_Window *GetWindow();
-        SDL_GLContext GetGLContext();
-
         inline EventSystem* GlobalEventSystem;
+        inline SDL_GLContext GlobalGLContext;
+        inline SDL_Window* GlobalWindow;
     };
 
     namespace gui
@@ -159,9 +158,9 @@ namespace mold
         {
         public:
             char InputBuf[512];
-            ImVector<char *> Items;
-            ImVector<const char *> Commands;
-            ImVector<char *> History;
+            std::vector<char *> Items;
+            std::vector<const char *> Commands;
+            std::vector<char *> History;
             std::map<const char*, void *> UserCommands;
             int HistoryPos;
             bool AutoScroll;
@@ -177,7 +176,7 @@ namespace mold
             int TextEditCallback(ImGuiInputTextCallbackData *data);
         };
 
-        Console *GetConsole();
+        inline Console GlobalConsole;
     };
 
     namespace core

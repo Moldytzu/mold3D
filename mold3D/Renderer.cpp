@@ -3,9 +3,8 @@
 using namespace mold::render;
 
 void mold::render::SetProjection(Float3D fov) {
-    SDL_Window* win = mold::core::GetWindow();
     int w,h;
-    SDL_GetWindowSize(win,&w,&h);
+    SDL_GetWindowSize(mold::core::GlobalWindow,&w,&h);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();

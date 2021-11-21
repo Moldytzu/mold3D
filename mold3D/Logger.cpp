@@ -7,15 +7,15 @@ auto engineStartedSince = NOW;
 
 void mold::core::logging::Info(const char* text) {
     printf("[%.2f/Info] %s\n", DIFFERENCE, text);
-    mold::gui::GetConsole()->AddLog("[%.2f/Info] %s\n", DIFFERENCE, text);
+    mold::gui::GlobalConsole.AddLog("[%.2f/Info] %s\n", DIFFERENCE, text);
 }
 
 void mold::core::logging::Warn(const char* text) {
     printf("[%.2f/Warn] %s\n", DIFFERENCE, text);
-    mold::gui::GetConsole()->AddLog("[%.2f/Warn] %s\n", DIFFERENCE, text);
+    mold::gui::GlobalConsole.AddLog("[%.2f/Warn] %s\n", DIFFERENCE, text);
 }
 
 void mold::core::logging::Error(const char* text) {
     printf("[/%.2fError] %s\n", DIFFERENCE, text);
-    mold::gui::GetConsole()->AddLog("[%.2f/Error] %s\n", DIFFERENCE, text);
+    mold::gui::GlobalConsole.AddLog("[%.2f/Error] %s\n", DIFFERENCE, text);
 }

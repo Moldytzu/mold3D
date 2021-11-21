@@ -15,7 +15,7 @@ void Redraw()
    bool *keys = mold::core::input::GetKeyStates();
    float delta = mold::core::time::GetDeltaTime();
 
-   if (!mold::gui::GetConsole()->Enabled)
+   if (!mold::gui::GlobalConsole.Enabled)
    {
       if (keys[mold::core::input::Key::_RIGHT] || keys['D'] || keys['d'])
          camera.Rotate(mold::Direction::Right, turnSpeed * delta);
@@ -59,7 +59,7 @@ int main()
    mold::core::Init(&camera, &eventSystem, 800, 600);
    mold::render::SetProjection(90.0f);
 
-   mold::gui::GetConsole()->AddHelpCommand("hello");
+   mold::gui::GlobalConsole.AddHelpCommand("hello");
 
    pyramid = mold::render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 1.0f);
    cube = mold::render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
