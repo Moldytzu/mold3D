@@ -4,8 +4,7 @@ mold::render::objects::Pyramid pyramid;
 mold::render::objects::Cube cube;
 mold::render::objects::Plane ground;
 
-float turnSpeed = 1.5f;
-float moveSpeed = 3.0f;
+float turnSpeed = 1.0f;
 
 void Redraw()
 {

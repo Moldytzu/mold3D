@@ -14,11 +14,11 @@ Console::Console()
     memset(InputBuf, 0, sizeof(InputBuf));
     HistoryPos = -1;
 
-    AddHelpCommand("Help");
-    AddHelpCommand("History");
-    AddHelpCommand("Clear");
-    AddHelpCommand("Close");
-    AddHelpCommand("Quit");
+    AddHelpCommand("help");
+    AddHelpCommand("history");
+    AddHelpCommand("clear");
+    AddHelpCommand("close");
+    AddHelpCommand("quit");
 
     AutoScroll = true;
     ScrollToBottom = false;
@@ -28,44 +28,6 @@ Console::~Console()
     ClearLog();
     for (int i = 0; i < History.size(); i++)
         free(History[i]);
-}
-
-// Portable helpers
-static int Stricmp(const char *s1, const char *s2)
-{
-    int d;
-    while ((d = toupper(*s2) - toupper(*s1)) == 0 && *s1)
-    {
-        s1++;
-        s2++;
-    }
-    return d;
-}
-static int Strnicmp(const char *s1, const char *s2, int n)
-{
-    int d = 0;
-    while (n > 0 && (d = toupper(*s2) - toupper(*s1)) == 0 && *s1)
-    {
-        s1++;
-        s2++;
-        n--;
-    }
-    return d;
-}
-static char *Strdup(const char *s)
-{
-    IM_ASSERT(s);
-    size_t len = strlen(s) + 1;
-    void *buf = malloc(len);
-    IM_ASSERT(buf);
-    return (char *)memcpy(buf, (const void *)s, len);
-}
-static void Strtrim(char *s)
-{
-    char *str_end = s + strlen(s);
-    while (str_end > s && str_end[-1] == ' ')
-        str_end--;
-    *str_end = 0;
 }
 
 void Console::ClearLog()
@@ -84,7 +46,7 @@ void Console::AddLog(const char *fmt, ...)
     vsnprintf(buf, IM_ARRAYSIZE(buf), fmt, args);
     buf[IM_ARRAYSIZE(buf) - 1] = 0;
     va_end(args);
-    Items.push_back(Strdup(buf));
+    Items.push_back(strdup(buf));
 }
 
 void Console::AddHelpCommand(const char *command)
@@ -97,7 +59,8 @@ void Console::Draw()
     if (!Enabled)
         return;
     ImGui::SetNextWindowSize(ImVec2(640, 480), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Internal mold3D Console", NULL))
+    bool shouldClose = true;
+    if (!ImGui::Begin("Internal mold3D Console", &shouldClose))
     {
         ImGui::End();
         return;
@@ -125,24 +88,7 @@ void Console::Draw()
     if (copy_to_clipboard)
         ImGui::LogToClipboard();
     for (int i = 0; i < Items.size(); i++)
-    {
-        const char *item = Items[i];
-
-        // Normally you would store more information in your item than just a string.
-        // (e.g. make Items[] an array of structure, store color/type etc.)
-        ImVec4 color;
-        bool has_color = false;
-        if (strncmp(item, "# ", 2) == 0)
-        {
-            color = ImVec4(1.0f, 0.8f, 0.6f, 1.0f);
-            has_color = true;
-        }
-        if (has_color)
-            ImGui::PushStyleColor(ImGuiCol_Text, color);
-        ImGui::TextUnformatted(item);
-        if (has_color)
-            ImGui::PopStyleColor();
-    }
+        ImGui::TextUnformatted(Items[i]);
     if (copy_to_clipboard)
         ImGui::LogFinish();
 
@@ -161,7 +107,6 @@ void Console::Draw()
     if (ImGui::InputText("Input", InputBuf, IM_ARRAYSIZE(InputBuf), input_text_flags, &TextEditCallbackStub, (void *)this))
     {
         char *s = InputBuf;
-        Strtrim(s);
         if (s[0])
             ExecCommand(s);
         strcpy(s, "");
@@ -173,12 +118,14 @@ void Console::Draw()
     if (reclaim_focus)
         ImGui::SetKeyboardFocusHere(-1); // Auto focus previous widget
 
+    Enabled = shouldClose;
+
     ImGui::End();
 }
 
 void Console::ExecCommand(const char *command_line)
 {
-#define EQ(x) Stricmp(command_line, x) == 0
+#define EQ(x) strcmp(command_line, x) == 0
 
     AddLog("# %s\n", command_line);
 
@@ -186,36 +133,36 @@ void Console::ExecCommand(const char *command_line)
     // This isn't trying to be smart or optimal.
     HistoryPos = -1;
     for (int i = History.size() - 1; i >= 0; i--)
-        if (Stricmp(History[i], command_line) == 0)
+        if (strcmp(History[i], command_line) == 0)
         {
             free(History[i]);
             History.erase(History.begin() + i);
             break;
         }
-    History.push_back(Strdup(command_line));
+    History.push_back(strdup(command_line));
 
     // Process command
-    if (EQ("CLEAR"))
+    if (EQ("clear"))
     {
         ClearLog();
     }
-    else if (EQ("HELP"))
+    else if (EQ("help"))
     {
         AddLog("Commands:");
         for (int i = 0; i < Commands.size(); i++)
             AddLog("- %s", Commands[i]);
     }
-    else if (EQ("HISTORY"))
+    else if (EQ("history"))
     {
         int first = History.size() - 10;
         for (int i = first > 0 ? first : 0; i < History.size(); i++)
             AddLog("%3d: %s\n", i, History[i]);
     }
-    else if (EQ("CLOSE"))
+    else if (EQ("close"))
     {
         Enabled = false;
     }
-    else if (EQ("QUIT"))
+    else if (EQ("quit"))
     {
         exit(0);
     }
@@ -249,7 +196,7 @@ int Console::TextEditCallback(ImGuiInputTextCallbackData *data)
         // Build a list of candidates
         ImVector<const char *> candidates;
         for (int i = 0; i < Commands.size(); i++)
-            if (Strnicmp(Commands[i], word_start, (int)(word_end - word_start)) == 0)
+            if (strncmp(Commands[i], word_start, (int)(word_end - word_start)) == 0)
                 candidates.push_back(Commands[i]);
 
         if (candidates.size() == 0)

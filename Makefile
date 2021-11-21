@@ -6,7 +6,7 @@ CPP = g++
 SRCDIR := mold3D
 OBJDIR := obj
 
-CFLAGS = -I $(shell pwd)/ -I $(shell pwd)/mold3D/3rd-Party/imgui -g -O0
+CFLAGS = -I $(shell pwd)/ -I $(shell pwd)/mold3D/3rd-Party/imgui -Ofast
 
 SRC = $(call rwildcard,$(SRCDIR),*.cpp)  
 OBJS = $(call reverse,$(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRC)))
