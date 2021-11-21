@@ -87,7 +87,8 @@ void Console::AddLog(const char *fmt, ...)
     Items.push_back(Strdup(buf));
 }
 
-void Console::AddHelpCommand(const char *command) {
+void Console::AddHelpCommand(const char *command)
+{
     Commands.push_back(command);
 }
 
@@ -220,7 +221,7 @@ void Console::ExecCommand(const char *command_line)
     }
     else
     {
-        if(!((bool (*)(const char*,Console*))mold::core::GlobalEventSystem->GetMap()[mold::core::OnCommand])(command_line,this))
+        if (!((bool (*)(const char *, Console *))mold::core::GlobalEventSystem.GetMap()[mold::core::OnCommand])(command_line, this))
             AddLog("Unknown command: '%s'\n", command_line);
     }
 

@@ -103,6 +103,8 @@ namespace mold
         };
 
         void SetProjection(Float3D fov);
+
+        inline objects::Camera GlobalCamera;
     };
 
     namespace core
@@ -143,13 +145,13 @@ namespace mold
             std::map<EventType, void *> events; //type, callback
         };
 
-        void Init(mold::render::objects::Camera *camera, EventSystem *eventSystem);
-        void Init(mold::render::objects::Camera *camera, EventSystem *eventSystem, int width, int height);
+        void Init();
+        void Init(int width, int height);
         void Run();
 
-        inline EventSystem* GlobalEventSystem;
+        inline EventSystem GlobalEventSystem;
         inline SDL_GLContext GlobalGLContext;
-        inline SDL_Window* GlobalWindow;
+        inline SDL_Window *GlobalWindow;
     };
 
     namespace gui
@@ -161,7 +163,7 @@ namespace mold
             std::vector<char *> Items;
             std::vector<const char *> Commands;
             std::vector<char *> History;
-            std::map<const char*, void *> UserCommands;
+            std::map<const char *, void *> UserCommands;
             int HistoryPos;
             bool AutoScroll;
             bool ScrollToBottom;

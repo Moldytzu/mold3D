@@ -4,10 +4,10 @@ using namespace mold::render::objects;
 
 Cube::Cube() {}
 
-Cube::Cube(Point3D point, RGB color, Float3D Size) : GameObject(point, color,Size)
+Cube::Cube(Point3D point, RGB color, Float3D Size) : GameObject(point, color, Size)
 {
-    this->coords.X -= Size/2;
-    this->coords.Z -= Size/2;
+    this->coords.X -= Size / 2;
+    this->coords.Z -= Size / 2;
 }
 
 void Cube::Draw()

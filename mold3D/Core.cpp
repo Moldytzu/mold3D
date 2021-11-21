@@ -1,14 +1,13 @@
 #include <mold3D/3D.h>
 
-#define CALL_EVENT(x) ((void (*)(void))GlobalEventSystem->GetMap()[x])()
+#define CALL_EVENT(x) ((void (*)(void))GlobalEventSystem.GetMap()[x])()
 
-mold::render::objects::Camera *userCam; //user camera
-bool *keys;                             //keys pressed
-mold::Clock _clock;                      //global clock used for delta time calculation
+bool *keys;         //keys pressed
+mold::Clock _clock; //global clock used for delta time calculation
 
 void stub() {}
 
-void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem, int width, int height)
+void mold::core::Init(int width, int height)
 {
     mold::gui::GlobalConsole = mold::gui::Console();
 
@@ -29,8 +28,8 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
 
     glEnable(GL_DEPTH_TEST);
 
-    userCam = camera;
-    GlobalEventSystem = eventSystem;
+    mold::render::GlobalCamera = mold::render::objects::Camera({0, 0, 0});
+    GlobalEventSystem = mold::core::EventSystem();
 
     mold::core::logging::Info("Setting up the ImGui subsystem");
     IMGUI_CHECKVERSION();
@@ -44,18 +43,18 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
 
     mold::core::logging::Info("Setting up the event system");
 
-    eventSystem->AttachCallback(Redraw, (void *)stub);
-    eventSystem->AttachCallback(Resize, (void *)stub);
-    eventSystem->AttachCallback(BeforeExit, (void *)stub);
-    eventSystem->AttachCallback(OnCommand, (void *)stub);
+    GlobalEventSystem.AttachCallback(Redraw, (void *)stub);
+    GlobalEventSystem.AttachCallback(Resize, (void *)stub);
+    GlobalEventSystem.AttachCallback(BeforeExit, (void *)stub);
+    GlobalEventSystem.AttachCallback(OnCommand, (void *)stub);
 
     mold::core::logging::Info("Started the engine!");
     keys = new bool[1073742000];
 }
 
-void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem)
+void mold::core::Init()
 {
-    Init(camera, eventSystem, 800, 600);
+    Init(800, 600);
 }
 
 void mold::core::Run()
@@ -75,7 +74,7 @@ void mold::core::Run()
             }
             else if (Event.type == SDL_KEYUP)
             {
-                if(Event.key.keysym.sym == '`' || Event.key.keysym.sym == '~')
+                if (Event.key.keysym.sym == '`' || Event.key.keysym.sym == '~')
                     mold::gui::GlobalConsole.Enabled = !mold::gui::GlobalConsole.Enabled;
                 keys[Event.key.keysym.sym] = false;
             }
@@ -85,7 +84,7 @@ void mold::core::Run()
                     CALL_EVENT(EventType::Resize);
             }
             else if (Event.type == SDL_QUIT)
-                if (!((bool (*)(void))GlobalEventSystem->GetMap()[mold::core::EventType::BeforeExit])())
+                if (!((bool (*)(void))GlobalEventSystem.GetMap()[mold::core::EventType::BeforeExit])())
                     return;
         }
 
@@ -98,7 +97,7 @@ void mold::core::Run()
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            userCam->Draw();
+            mold::render::GlobalCamera.Draw();
 
             ImGui_ImplOpenGL2_NewFrame();
             ImGui_ImplSDL2_NewFrame();
