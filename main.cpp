@@ -45,10 +45,21 @@ bool BeforeExit()
    return false; // don't prevent exit
 }
 
+bool OnCommand(const char* command, mold::gui::Console* console)
+{
+   if(strcmp(command,"hello")==0) {
+      mold::core::logging::Info("Hello, World!");
+      return true;
+   }
+   return false;
+}
+
 int main()
 {
    mold::core::Init(&camera, &eventSystem, 800, 600);
    mold::render::SetProjection(90.0f);
+
+   mold::gui::GetConsole()->AddHelpCommand("hello");
 
    pyramid = mold::render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 1.0f);
    cube = mold::render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
@@ -58,6 +69,7 @@ int main()
    eventSystem.AttachCallback(mold::core::EventType::Redraw, (void *)Redraw);
    eventSystem.AttachCallback(mold::core::EventType::Resize, (void *)Resize);
    eventSystem.AttachCallback(mold::core::EventType::BeforeExit, (void *)BeforeExit);
+   eventSystem.AttachCallback(mold::core::EventType::OnCommand, (void *)OnCommand);
 
    mold::core::Run();
    return 0;

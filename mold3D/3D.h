@@ -129,6 +129,7 @@ namespace mold
             Redraw = 1,
             Resize = 2,
             BeforeExit = 3,
+            OnCommand = 4,
         };
 
         class EventSystem
@@ -148,6 +149,8 @@ namespace mold
 
         SDL_Window *GetWindow();
         SDL_GLContext GetGLContext();
+
+        inline EventSystem* GlobalEventSystem;
     };
 
     namespace gui
@@ -159,6 +162,7 @@ namespace mold
             ImVector<char *> Items;
             ImVector<const char *> Commands;
             ImVector<char *> History;
+            std::map<const char*, void *> UserCommands;
             int HistoryPos;
             bool AutoScroll;
             bool ScrollToBottom;
@@ -167,6 +171,7 @@ namespace mold
             ~Console();
             void ClearLog();
             void AddLog(const char *fmt, ...) IM_FMTARGS(2);
+            void AddHelpCommand(const char *command);
             void Draw();
             void ExecCommand(const char *command_line);
             int TextEditCallback(ImGuiInputTextCallbackData *data);

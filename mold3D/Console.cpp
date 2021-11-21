@@ -14,11 +14,12 @@ Console::Console()
     memset(InputBuf, 0, sizeof(InputBuf));
     HistoryPos = -1;
 
-    Commands.push_back("Help");
-    Commands.push_back("History");
-    Commands.push_back("Clear");
-    Commands.push_back("Close");
-    Commands.push_back("Quit");
+    AddHelpCommand("Help");
+    AddHelpCommand("History");
+    AddHelpCommand("Clear");
+    AddHelpCommand("Close");
+    AddHelpCommand("Quit");
+
     AutoScroll = true;
     ScrollToBottom = false;
 }
@@ -86,9 +87,14 @@ void Console::AddLog(const char *fmt, ...)
     Items.push_back(Strdup(buf));
 }
 
+void Console::AddHelpCommand(const char *command) {
+    Commands.push_back(command);
+}
+
 void Console::Draw()
 {
-    if(!Enabled) return;
+    if (!Enabled)
+        return;
     ImGui::SetNextWindowSize(ImVec2(640, 480), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin("Internal mold3D Console", NULL))
     {
@@ -102,7 +108,6 @@ void Console::Draw()
     }
     ImGui::SameLine();
     bool copy_to_clipboard = ImGui::SmallButton("Copy Output");
-    //static float t = 0.0f; if (ImGui::GetTime() - t > 0.02f) { t = ImGui::GetTime(); AddLog("Spam %f", t); }
 
     ImGui::Separator();
 
@@ -215,7 +220,8 @@ void Console::ExecCommand(const char *command_line)
     }
     else
     {
-        AddLog("Unknown command: '%s'\n", command_line);
+        if(!((bool (*)(const char*,Console*))mold::core::GlobalEventSystem->GetMap()[mold::core::OnCommand])(command_line,this))
+            AddLog("Unknown command: '%s'\n", command_line);
     }
 
     // On command input, we scroll to bottom even if AutoScroll==false
@@ -224,13 +230,10 @@ void Console::ExecCommand(const char *command_line)
 
 int Console::TextEditCallback(ImGuiInputTextCallbackData *data)
 {
-    //AddLog("cursor: %d, selection: %d-%d", data->CursorPos, data->SelectionStart, data->SelectionEnd);
     switch (data->EventFlag)
     {
     case ImGuiInputTextFlags_CallbackCompletion:
     {
-        // Example of TEXT COMPLETION
-
         // Locate beginning of current word
         const char *word_end = data->Buf + data->CursorPos;
         const char *word_start = word_end;

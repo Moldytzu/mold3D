@@ -7,7 +7,7 @@ SDL_GLContext Context;
 mold::render::objects::Camera *userCam; //user camera
 mold::core::EventSystem *events;        //event system
 bool *keys;                             //keys pressed
-mold::Clock clock;                      //global clock used for delta time calculation
+mold::Clock _clock;                      //global clock used for delta time calculation
 mold::gui::Console console;
 
 void stub() {}
@@ -18,6 +18,8 @@ mold::gui::Console* mold::gui::GetConsole() {
 
 void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventSystem, int width, int height)
 {
+    console = mold::gui::Console();
+
     mold::core::logging::Info("Starting mold3D");
     mold::core::logging::Info("Starting SDL subsystem");
     Window = SDL_CreateWindow("mold3D", 0, 0, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
@@ -37,6 +39,7 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
 
     userCam = camera;
     events = eventSystem;
+    GlobalEventSystem = eventSystem;
 
     mold::core::logging::Info("Setting up the ImGui subsystem");
     IMGUI_CHECKVERSION();
@@ -53,6 +56,7 @@ void mold::core::Init(mold::render::objects::Camera *camera, EventSystem *eventS
     eventSystem->AttachCallback(Redraw, (void *)stub);
     eventSystem->AttachCallback(Resize, (void *)stub);
     eventSystem->AttachCallback(BeforeExit, (void *)stub);
+    eventSystem->AttachCallback(OnCommand, (void *)stub);
 
     mold::core::logging::Info("Started the engine!");
     keys = new bool[1073742000];
@@ -68,7 +72,7 @@ void mold::core::Run()
     mold::core::logging::Info("Starting the game");
     while (1)
     {
-        clock.tick();
+        _clock.tick();
 
         SDL_Event Event;
         while (SDL_PollEvent(&Event))
@@ -94,10 +98,10 @@ void mold::core::Run()
                     return;
         }
 
-        if (clock.delta > 0)
+        if (_clock.delta > 0)
         {
             char windowTitle[1024];
-            sprintf(windowTitle, "mold3D : %d FPS", (int)(1.0f / clock.delta));
+            sprintf(windowTitle, "mold3D : %d FPS", (int)(1.0f / _clock.delta));
 
             SDL_SetWindowTitle(Window, windowTitle);
 
@@ -129,7 +133,7 @@ bool *mold::core::input::GetKeyStates()
 
 float mold::core::time::GetDeltaTime()
 {
-    return clock.delta;
+    return _clock.delta;
 }
 
 SDL_Window *mold::core::GetWindow()
@@ -141,3 +145,4 @@ SDL_GLContext mold::core::GetGLContext()
 {
     return Context;
 }
+
