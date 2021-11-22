@@ -1,26 +1,29 @@
 #include "mold3D/3D.h"
 
-mold::render::objects::Pyramid pyramid;
-mold::render::objects::Cube cube;
-mold::render::objects::Plane ground;
+using namespace mold;
+using namespace mold::core;
 
-float turnSpeed = 1.0f;
+render::objects::Pyramid pyramid;
+render::objects::Cube cube;
+render::objects::Plane ground;
 
-void Redraw()
+float turnSpeed = 0.25f;
+
+void RedrawEvent()
 {
-   if (!mold::gui::GlobalConsole.Enabled)
+   if (!gui::GlobalConsole.Enabled)
    {
-      if (mold::core::input::KeyStates[mold::core::input::Key::RIGHT] || mold::core::input::KeyStates[mold::core::input::Key::D])
-         mold::render::GlobalCamera.Rotate(mold::Direction::Right, turnSpeed * mold::core::time::DeltaTime);
+      if (input::KeyStates[input::Key::RIGHT] || input::KeyStates[input::Key::D])
+         render::GlobalCamera.Rotate(Direction::Right, turnSpeed * time::DeltaTime);
 
-      if (mold::core::input::KeyStates[mold::core::input::Key::LEFT] || mold::core::input::KeyStates[mold::core::input::Key::A])
-         mold::render::GlobalCamera.Rotate(mold::Direction::Left, turnSpeed * mold::core::time::DeltaTime);
+      if (input::KeyStates[input::Key::LEFT] || input::KeyStates[input::Key::A])
+         render::GlobalCamera.Rotate(Direction::Left, turnSpeed * time::DeltaTime);
 
-      if (mold::core::input::KeyStates[mold::core::input::Key::UP] || mold::core::input::KeyStates[mold::core::input::Key::W])
-         mold::render::GlobalCamera.Rotate(mold::Direction::Forward, turnSpeed * mold::core::time::DeltaTime);
+      if (input::KeyStates[input::Key::UP] || input::KeyStates[input::Key::W])
+         render::GlobalCamera.Rotate(Direction::Forward, turnSpeed * time::DeltaTime);
 
-      if (mold::core::input::KeyStates[mold::core::input::Key::DOWN] || mold::core::input::KeyStates[mold::core::input::Key::S])
-         mold::render::GlobalCamera.Rotate(mold::Direction::Backward, turnSpeed * mold::core::time::DeltaTime);
+      if (input::KeyStates[input::Key::DOWN] || input::KeyStates[input::Key::S])
+         render::GlobalCamera.Rotate(Direction::Backward, turnSpeed * time::DeltaTime);
    }
 
    cube.Draw();
@@ -28,21 +31,21 @@ void Redraw()
    ground.Draw();
 }
 
-void Resize()
+void ResizeEvent()
 {
-   mold::render::SetProjection(90.0f);
+   render::SetProjection(90.0f);
 }
 
-bool BeforeExit()
+bool BeforeExitEvent()
 {
    return false; // don't prevent exit
 }
 
-bool OnCommand(const char *command, mold::gui::Console *console)
+bool OnCommandEvent(const char *command, gui::Console *console)
 {
    if (strcmp(command, "hello") == 0)
    {
-      mold::core::logging::Info("Hello, World!");
+      logging::Info("Hello, World!");
       return true;
    }
    return false;
@@ -50,21 +53,21 @@ bool OnCommand(const char *command, mold::gui::Console *console)
 
 int main()
 {
-   mold::core::Init(800, 600);
-   mold::render::SetProjection(90.0f);
+   Init(800, 600);
+   render::SetProjection(90.0f);
 
-   mold::gui::GlobalConsole.AddHelpCommand("hello");
+   gui::GlobalConsole.AddHelpCommand("hello");
 
-   pyramid = mold::render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 1.0f);
-   cube = mold::render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
-   ground = mold::render::objects::Plane({0, 0, 0}, {0.0f, 1.0f, 0.0f}, 3.0f);
-   mold::render::GlobalCamera = mold::render::objects::Camera({0.0f, 1.0f, 1.5f});
+   pyramid = render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 1.0f);
+   cube = render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
+   ground = render::objects::Plane({0, 0, 0}, {0.0f, 1.0f, 0.0f}, 3.0f);
+   render::GlobalCamera = render::objects::Camera({0.0f, 1.0f, 1.5f});
 
-   mold::core::GlobalEventSystem.AttachCallback(mold::core::EventType::Redraw, (void *)Redraw);
-   mold::core::GlobalEventSystem.AttachCallback(mold::core::EventType::Resize, (void *)Resize);
-   mold::core::GlobalEventSystem.AttachCallback(mold::core::EventType::BeforeExit, (void *)BeforeExit);
-   mold::core::GlobalEventSystem.AttachCallback(mold::core::EventType::OnCommand, (void *)OnCommand);
+   GlobalEventSystem.AttachCallback(EventType::Redraw, (void *)RedrawEvent);
+   GlobalEventSystem.AttachCallback(EventType::Resize, (void *)ResizeEvent);
+   GlobalEventSystem.AttachCallback(EventType::BeforeExit, (void *)BeforeExitEvent);
+   GlobalEventSystem.AttachCallback(EventType::OnCommand, (void *)OnCommandEvent);
 
-   mold::core::Run();
+   Run();
    return 0;
 }
