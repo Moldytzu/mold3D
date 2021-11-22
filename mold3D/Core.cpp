@@ -2,7 +2,6 @@
 
 #define CALL_EVENT(x) ((void (*)(void))GlobalEventSystem.GetMap()[x])()
 
-bool *keys;         //keys pressed
 mold::Clock _clock; //global clock used for delta time calculation
 
 void stub() {}
@@ -49,7 +48,8 @@ void mold::core::Init(int width, int height)
     GlobalEventSystem.AttachCallback(OnCommand, (void *)stub);
 
     mold::core::logging::Info("Started the engine!");
-    keys = new bool[1073742000];
+    mold::core::input::KeyStates = new bool[512];
+    memset(mold::core::input::KeyStates,0,512);
 }
 
 void mold::core::Init()
@@ -70,13 +70,13 @@ void mold::core::Run()
             ImGui_ImplSDL2_ProcessEvent(&Event);
             if (Event.type == SDL_KEYDOWN)
             {
-                keys[Event.key.keysym.sym] = true;
+                mold::core::input::KeyStates[Event.key.keysym.scancode] = true;
             }
             else if (Event.type == SDL_KEYUP)
             {
-                if (Event.key.keysym.sym == '`' || Event.key.keysym.sym == '~')
+                if (Event.key.keysym.scancode == mold::core::input::GRAVE)
                     mold::gui::GlobalConsole.Enabled = !mold::gui::GlobalConsole.Enabled;
-                keys[Event.key.keysym.sym] = false;
+                mold::core::input::KeyStates[Event.key.keysym.scancode] = false;
             }
             else if (Event.type == SDL_WINDOWEVENT)
             {
@@ -113,15 +113,7 @@ void mold::core::Run()
 
             SDL_GL_SwapWindow(GlobalWindow);
         }
+        mold::core::time::DeltaTime = _clock.delta;
+        mold::core::time::FPS = (int)(1.0f / _clock.delta);
     }
-}
-
-bool *mold::core::input::GetKeyStates()
-{
-    return keys;
-}
-
-float mold::core::time::GetDeltaTime()
-{
-    return _clock.delta;
 }

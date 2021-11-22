@@ -30,3 +30,21 @@ size_t profiler::GetTrackedMemory()
 {
     return usedMemory;
 }
+
+void mold::gui::Profiler::Draw()
+{
+    const float DISTANCE = 7.5f;
+    ImGui::SetNextWindowPos(ImVec2(DISTANCE, DISTANCE), ImGuiCond_Always);
+    ImGui::SetNextWindowBgAlpha(0.5f);
+    if (ImGui::Begin("Profiler Window", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav))
+    {
+        ImGui::Text("mold3D Profiler\n");
+        ImGui::Separator();
+        ImGui::Text("Allocated %lu MB on the heap\n", usedMemory / 1024 / 1024);
+        ImGui::Separator();
+        ImGui::Text("FPS: %u\n",mold::core::time::FPS);
+        ImGui::Text("Frame drawing took: %u ms\n",(int)(mold::core::time::DeltaTime*1000));
+        ImGui::Separator();
+    }
+    ImGui::End();
+}

@@ -8,27 +8,27 @@ float turnSpeed = 1.0f;
 
 void Redraw()
 {
-   bool *keys = mold::core::input::GetKeyStates();
-   float delta = mold::core::time::GetDeltaTime();
-
    if (!mold::gui::GlobalConsole.Enabled)
    {
-      if (keys[mold::core::input::Key::_RIGHT] || keys['D'] || keys['d'])
-         mold::render::GlobalCamera.Rotate(mold::Direction::Right, turnSpeed * delta);
+      if (mold::core::input::KeyStates[mold::core::input::Key::RIGHT] || mold::core::input::KeyStates[mold::core::input::Key::D])
+         mold::render::GlobalCamera.Rotate(mold::Direction::Right, turnSpeed * mold::core::time::DeltaTime);
 
-      if (keys[mold::core::input::Key::_LEFT] || keys['a'] || keys['A'])
-         mold::render::GlobalCamera.Rotate(mold::Direction::Left, turnSpeed * delta);
+      if (mold::core::input::KeyStates[mold::core::input::Key::LEFT] || mold::core::input::KeyStates[mold::core::input::Key::A])
+         mold::render::GlobalCamera.Rotate(mold::Direction::Left, turnSpeed * mold::core::time::DeltaTime);
 
-      if (keys[mold::core::input::Key::_UP] || keys['w'] || keys['W'])
-         mold::render::GlobalCamera.Rotate(mold::Direction::Forward, turnSpeed * delta);
+      if (mold::core::input::KeyStates[mold::core::input::Key::UP] || mold::core::input::KeyStates[mold::core::input::Key::W])
+         mold::render::GlobalCamera.Rotate(mold::Direction::Forward, turnSpeed * mold::core::time::DeltaTime);
 
-      if (keys[mold::core::input::Key::_DOWN] || keys['s'] || keys['S'])
-         mold::render::GlobalCamera.Rotate(mold::Direction::Backward, turnSpeed * delta);
+      if (mold::core::input::KeyStates[mold::core::input::Key::DOWN] || mold::core::input::KeyStates[mold::core::input::Key::S])
+         mold::render::GlobalCamera.Rotate(mold::Direction::Backward, turnSpeed * mold::core::time::DeltaTime);
    }
 
    cube.Draw();
    pyramid.Draw();
    ground.Draw();
+
+   mold::gui::Profiler pWin;
+   pWin.Draw();
 }
 
 void Resize()
