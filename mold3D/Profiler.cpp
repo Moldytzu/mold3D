@@ -33,6 +33,8 @@ size_t profiler::GetTrackedMemory()
 
 void mold::gui::Profiler::Draw()
 {
+    if (!Enabled)
+        return;
     const float DISTANCE = 7.5f;
     ImGui::SetNextWindowPos(ImVec2(DISTANCE, DISTANCE), ImGuiCond_Always);
     ImGui::SetNextWindowBgAlpha(0.5f);
@@ -42,14 +44,15 @@ void mold::gui::Profiler::Draw()
         ImGui::Separator();
         //need to optimize this
         size_t val = usedMemory / 1024 / 1024;
-        if(val == 0)
+        if (val == 0)
             ImGui::Text("Allocated %lu KB on the heap\n", usedMemory / 1024);
         else
             ImGui::Text("Allocated %lu MB on the heap\n", val);
         ImGui::Separator();
-        ImGui::Text("FPS: %u\n",mold::core::time::FPS);
-        ImGui::Text("Frame drawing took: %u ms\n",(int)(mold::core::time::DeltaTime*1000));
+        ImGui::Text("FPS: %u\n", mold::core::time::FPS);
+        ImGui::Text("Frame drawing took: %u ms\n", (int)(mold::core::time::DeltaTime * 1000));
         ImGui::Separator();
+        ImGui::Text("Press INSERT to close overlay\n");
     }
     ImGui::End();
 }

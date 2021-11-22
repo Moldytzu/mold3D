@@ -183,6 +183,7 @@ namespace mold
         class Profiler
         {
         public:
+            bool Enabled;
             void Draw();
         };
 

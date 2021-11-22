@@ -26,9 +26,6 @@ void Redraw()
    cube.Draw();
    pyramid.Draw();
    ground.Draw();
-
-   mold::gui::Profiler pWin;
-   pWin.Draw();
 }
 
 void Resize()

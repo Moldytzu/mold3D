@@ -3,6 +3,7 @@
 #define CALL_EVENT(x) ((void (*)(void))GlobalEventSystem.GetMap()[x])()
 
 mold::Clock _clock; //global clock used for delta time calculation
+mold::gui::Profiler profilerWindow;
 
 void stub() {}
 
@@ -49,7 +50,7 @@ void mold::core::Init(int width, int height)
 
     mold::core::logging::Info("Started the engine!");
     mold::core::input::KeyStates = new bool[512];
-    memset(mold::core::input::KeyStates,0,512);
+    memset(mold::core::input::KeyStates, 0, 512);
 }
 
 void mold::core::Init()
@@ -74,8 +75,10 @@ void mold::core::Run()
             }
             else if (Event.type == SDL_KEYUP)
             {
-                if (Event.key.keysym.scancode == mold::core::input::GRAVE)
+                if (Event.key.keysym.scancode == (SDL_Scancode)mold::core::input::GRAVE)
                     mold::gui::GlobalConsole.Enabled = !mold::gui::GlobalConsole.Enabled;
+                else if (Event.key.keysym.scancode == (SDL_Scancode)mold::core::input::INSERT)
+                    profilerWindow.Enabled = !profilerWindow.Enabled;
                 mold::core::input::KeyStates[Event.key.keysym.scancode] = false;
             }
             else if (Event.type == SDL_WINDOWEVENT)
@@ -105,6 +108,7 @@ void mold::core::Run()
 
             CALL_EVENT(EventType::Redraw);
             mold::gui::GlobalConsole.Draw();
+            profilerWindow.Draw();
 
             ImGui::Render();
             ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
