@@ -117,6 +117,12 @@ void mold::core::Run()
 
             SDL_GL_SwapWindow(GlobalWindow);
         }
+
+        //handle GL errors
+        GLenum error = glGetError();
+        if(error != GL_NO_ERROR)
+            printf("OPENGL ERROR %u\n",error);
+
         mold::core::time::DeltaTime = _clock.delta;
         mold::core::time::FPS = (int)(1.0f / _clock.delta);
     }
