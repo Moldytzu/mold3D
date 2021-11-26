@@ -4,16 +4,26 @@ using namespace mold::render::objects;
 
 Plane::Plane() {}
 
-Plane::Plane(Point3D point, RGB color, Float3D Size) : GameObject(point, color, Size / 2) {}
+Plane::Plane(Point3D point, RGB color, Float3D size) : GameObject(point, color, size / 2) {}
 
 void Plane::Draw()
 {
+    glPushMatrix();
+    
     glColor3f(color.R, color.G, color.B); // set color
 
+    //scale up
+    glScalef(Size,Size,Size);
+
+    //move in the world
+    glTranslatef(coords.X,coords.Y,coords.Z);
+
     glBegin(GL_QUADS);
-    glVertex3f(coords.X - Size, coords.Y, coords.Z - Size);
-    glVertex3f(coords.X - Size, coords.Y, Size + coords.Z);
-    glVertex3f(Size + coords.X, coords.Y, Size + coords.Z);
-    glVertex3f(Size + coords.X, coords.Y, coords.Z - Size);
+    glVertex3f(0 - 1.0f, 0, 0 - 1.0f);
+    glVertex3f(0 - 1.0f, 0, 1.0f + 0);
+    glVertex3f(1.0f + 0, 0, 1.0f + 0);
+    glVertex3f(1.0f + 0, 0, 0 - 1.0f);
     glEnd();
+
+    glPopMatrix();
 }

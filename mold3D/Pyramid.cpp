@@ -8,6 +8,8 @@ Pyramid::Pyramid(Point3D point, RGB color, Float3D Size) : GameObject({point.X, 
 
 void Pyramid::Draw()
 {
+    glPushMatrix();
+
     glColor3f(color.R, color.G, color.B); // set color
 
     //scale up
@@ -48,9 +50,5 @@ void Pyramid::Draw()
     glVertex3f(0 + 1.0f / 2, 0, 0 - 1.0f / 2);
     glEnd();
 
-    //scale down
-    glScalef(-Size,-Size,-Size);
-
-    //move back
-    glTranslatef(-coords.X,-coords.Y,-coords.Z);
+    glPopMatrix();
 }
