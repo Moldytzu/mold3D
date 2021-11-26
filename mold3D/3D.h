@@ -112,6 +112,8 @@ namespace mold
         namespace input
         {
             inline bool *KeyStates;
+
+            void LockCursor(bool locked);
         };
 
         namespace time

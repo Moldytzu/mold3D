@@ -56,6 +56,8 @@ int main()
    Init(800, 600);
    render::SetProjection(90.0f);
 
+   input::LockCursor(true);
+
    gui::GlobalConsole.AddHelpCommand("hello");
 
    pyramid = render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 2.0f);
