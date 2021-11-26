@@ -11,7 +11,7 @@ void Camera::Draw()
     glLoadIdentity();
     gluLookAt(coords.X, coords.Y, coords.Z,                            // eye -> camera position
               coords.X + AngleX, coords.Y + AngleY, coords.Z + AngleZ, // center -> camera + angle
-              0.0f, coords.Y + AngleY, 0.0f);                          // up -> 0
+              0.0f, coords.Y, 0.0f);                          // up -> 0
 }
 
 void Camera::Move(Direction direction, Float3D value)
@@ -40,7 +40,7 @@ void Camera::Rotate(Direction direction, Float3D value)
 {
     if (direction == Direction::Forward)
     {
-        AngleY = std::clamp((float)AngleY + (float)value, -0.9999999f, 0.9999999f);
+        AngleY += (float)value;
     }
     if (direction == Direction::Right)
     {
@@ -56,6 +56,6 @@ void Camera::Rotate(Direction direction, Float3D value)
     }
     if (direction == Direction::Backward)
     {
-        AngleY = std::clamp((float)AngleY - (float)value, -0.9999999f, 0.9999999f);
+        AngleY -= (float)value;
     }
 }
