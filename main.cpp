@@ -26,9 +26,10 @@ void RedrawEvent()
          render::GlobalCamera.Rotate(Direction::Backward, turnSpeed * time::DeltaTime);
    }
 
-   cube.Draw();
-   pyramid.Draw();
    ground.Draw();
+   //cube.Draw();
+   pyramid.Draw();
+   
 }
 
 void ResizeEvent()
@@ -58,7 +59,7 @@ int main()
 
    gui::GlobalConsole.AddHelpCommand("hello");
 
-   pyramid = render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 1.0f);
+   pyramid = render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 3.0f);
    cube = render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 1.0f);
    ground = render::objects::Plane({0, 0, 0}, {0.0f, 1.0f, 0.0f}, 3.0f);
    render::GlobalCamera = render::objects::Camera({0.0f, 1.0f, 1.5f});
