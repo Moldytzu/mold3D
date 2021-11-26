@@ -19,6 +19,7 @@ Console::Console()
     AddHelpCommand("clear");
     AddHelpCommand("close");
     AddHelpCommand("quit");
+    AddHelpCommand("wireframe");
 
     AutoScroll = true;
     ScrollToBottom = false;
@@ -165,6 +166,16 @@ void Console::ExecCommand(const char *command_line)
     else if (EQ("quit"))
     {
         exit(0);
+    }
+    else if (EQ("wireframe"))
+    {
+        static bool wireframeEnabled;
+        if(!wireframeEnabled)
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        else
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+        wireframeEnabled = !wireframeEnabled;
     }
     else
     {
