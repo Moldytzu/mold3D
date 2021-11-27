@@ -120,10 +120,20 @@ void mold::core::Run()
 
         //handle GL errors
         GLenum error = glGetError();
-        if(error != GL_NO_ERROR)
-            printf("OPENGL ERROR %u\n",error);
+        if (error != GL_NO_ERROR)
+            printf("OPENGL ERROR %u\n", error);
 
         mold::core::time::DeltaTime = _clock.delta;
         mold::core::time::FPS = (int)(1.0f / _clock.delta);
+        if (mold::core::input::LockCursor == true && !mold::gui::GlobalConsole.Enabled)
+        {
+            SDL_SetRelativeMouseMode(SDL_TRUE);
+            SDL_SetWindowGrab(GlobalWindow, SDL_TRUE);
+            SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1", SDL_HINT_OVERRIDE);
+        } else {
+            SDL_SetRelativeMouseMode(SDL_FALSE);
+            SDL_SetWindowGrab(GlobalWindow, SDL_FALSE);
+            SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1", SDL_HINT_OVERRIDE);    
+        }
     }
 }

@@ -59,6 +59,7 @@ void Console::Draw()
 {
     if (!Enabled)
         return;
+
     ImGui::SetNextWindowSize(ImVec2(640, 480), ImGuiCond_FirstUseEver);
     bool shouldClose = true;
     if (!ImGui::Begin("Internal mold3D Console", &shouldClose))

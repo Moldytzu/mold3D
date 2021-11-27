@@ -56,7 +56,7 @@ int main()
    Init(800, 600);
    render::SetProjection(90.0f);
 
-   input::LockCursor(true);
+   input::LockCursor = true;
 
    gui::GlobalConsole.AddHelpCommand("hello");
 

@@ -113,7 +113,7 @@ namespace mold
         {
             inline bool *KeyStates;
 
-            void LockCursor(bool locked);
+            inline bool LockCursor;
         };
 
         namespace time
