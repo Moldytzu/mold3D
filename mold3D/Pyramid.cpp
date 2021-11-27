@@ -13,10 +13,10 @@ void Pyramid::Draw()
     glColor3f(color.R, color.G, color.B); // set color
 
     //scale up
-    glScalef(Size,Size,Size);
+    glScalef(Size, Size, Size);
 
     //move in the world
-    glTranslatef(coords.X,coords.Y,coords.Z);
+    glTranslatef(coords.X, coords.Y, coords.Z);
 
     glBegin(GL_TRIANGLES);
 

@@ -11,7 +11,7 @@ void Camera::Draw()
     glLoadIdentity();
     gluLookAt(coords.X, coords.Y, coords.Z,                            // eye -> camera position
               coords.X + AngleX, coords.Y + AngleY, coords.Z + AngleZ, // center -> camera + angle
-              0.0f, coords.Y, 0.0f);                          // up -> 0
+              0.0f, coords.Y, 0.0f);                                   // up -> 0
 }
 
 void Camera::Move(Direction direction, Float3D value)

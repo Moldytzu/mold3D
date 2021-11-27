@@ -9,14 +9,14 @@ Plane::Plane(Point3D point, RGB color, Float3D size) : GameObject(point, color, 
 void Plane::Draw()
 {
     glPushMatrix();
-    
+
     glColor3f(color.R, color.G, color.B); // set color
 
     //scale up
-    glScalef(Size,Size,Size);
+    glScalef(Size, Size, Size);
 
     //move in the world
-    glTranslatef(coords.X,coords.Y,coords.Z);
+    glTranslatef(coords.X, coords.Y, coords.Z);
 
     glBegin(GL_QUADS);
     glVertex3f(0 - 1.0f, 0, 0 - 1.0f);

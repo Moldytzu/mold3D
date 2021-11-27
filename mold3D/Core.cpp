@@ -130,10 +130,12 @@ void mold::core::Run()
             SDL_SetRelativeMouseMode(SDL_TRUE);
             SDL_SetWindowGrab(GlobalWindow, SDL_TRUE);
             SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1", SDL_HINT_OVERRIDE);
-        } else {
+        }
+        else
+        {
             SDL_SetRelativeMouseMode(SDL_FALSE);
             SDL_SetWindowGrab(GlobalWindow, SDL_FALSE);
-            SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1", SDL_HINT_OVERRIDE);    
+            SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1", SDL_HINT_OVERRIDE);
         }
     }
 }
