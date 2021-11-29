@@ -160,13 +160,13 @@ namespace mold
         {
             inline bool *KeyStates;
 
-            inline bool LockCursor;
+            inline bool LockCursor = false;
         };
 
         namespace time
         {
-            inline float DeltaTime;
-            inline int FPS;
+            inline float DeltaTime = 0;
+            inline int FPS = 0;
         };
 
         namespace logging
@@ -218,7 +218,7 @@ namespace mold
             int HistoryPos;
             bool AutoScroll;
             bool ScrollToBottom;
-            bool Enabled;
+            bool Enabled = false;
             Console();
             ~Console();
             void ClearLog();
@@ -232,7 +232,7 @@ namespace mold
         class Profiler
         {
         public:
-            bool Enabled;
+            bool Enabled = false;
             void Draw();
         };
 

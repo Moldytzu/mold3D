@@ -52,6 +52,15 @@ void mold::gui::Profiler::Draw()
         ImGui::Text("FPS: %u\n", mold::core::time::FPS);
         ImGui::Text("Frame drawing took: %u ms\n", (int)(mold::core::time::DeltaTime * 1000));
         ImGui::Separator();
+        ImGui::Text("OpenGL Vendor: %s\n", glGetString(GL_VENDOR));
+        ImGui::Text("OpenGL Renderer: %s\n", glGetString(GL_RENDERER));
+        GLint total_mem_kb = 0;
+        glGetIntegerv(0x9047, &total_mem_kb); //works for nVidia
+        if(glGetError() == 1280) //it fails on AMD and Intel
+            glGetIntegerv(0x87FD, &total_mem_kb);
+        if(glGetError() != 1280)
+            ImGui::Text("GPU video memory: %u KB\n", total_mem_kb);
+        ImGui::Separator();
         ImGui::Text("Press INSERT to close overlay\n");
     }
     ImGui::End();
