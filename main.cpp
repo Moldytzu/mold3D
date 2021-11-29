@@ -56,6 +56,27 @@ int main()
    Init(800, 600);
    render::SetProjection(90.0f);
 
+   Byte* img = mold::render::texture::LoadRGBBitmap("texture.bmp");
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // Create Texture
+
+    glGenTextures(2, (GLuint*)img);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, 512, 512, 0,
+
+    GL_RGB, GL_UNSIGNED_BYTE, img);
+
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
+
    input::LockCursor = true;
 
    gui::GlobalConsole.AddHelpCommand("hello");

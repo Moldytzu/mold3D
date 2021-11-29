@@ -19,6 +19,6 @@ void mold::core::logging::Warn(const char *text)
 
 void mold::core::logging::Error(const char *text)
 {
-    printf("[/%.2fError] %s\n", DIFFERENCE, text);
+    printf("[%.2f/Error] %s\n", DIFFERENCE, text);
     mold::gui::GlobalConsole.AddLog("[%.2f/Error] %s\n", DIFFERENCE, text);
 }
