@@ -25,13 +25,13 @@ void Plane::Draw()
     glTranslatef(coords.X, coords.Y, coords.Z);
 
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0, 0.0);
-    glVertex3f(0 - 1.0f, 0, 0 - 1.0f);
-    glTexCoord2f(1.0, 0.0);
-    glVertex3f(0 - 1.0f, 0, 1.0f + 0);
-    glTexCoord2f(1.0, 1.0);
-    glVertex3f(1.0f + 0, 0, 1.0f + 0);
     glTexCoord2f(0.0, 1.0);
+    glVertex3f(0 - 1.0f, 0, 0 - 1.0f);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(0 - 1.0f, 0, 1.0f + 0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(1.0f + 0, 0, 1.0f + 0);
+    glTexCoord2f(1.0, 1.0);
     glVertex3f(1.0f + 0, 0, 0 - 1.0f);
     glEnd();
 

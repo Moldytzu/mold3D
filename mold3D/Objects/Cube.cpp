@@ -26,50 +26,50 @@ void Cube::Draw()
 
     // BACK
     glBegin(GL_POLYGON);
-    glVertex3f(0.5, 0, 0.5);
-    glVertex3f(0.5, 1, 0.5);
-    glVertex3f(-0.5, 1, 0.5);
-    glVertex3f(-0.5, 0, 0.5);
+    glTexCoord2f(1.0, 0.0); glVertex3f(0.5, 0, 0.5);  
+    glTexCoord2f(1.0, 1.0); glVertex3f(0.5, 1, 0.5);  
+    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
+    glTexCoord2f(0.0, 0.0); glVertex3f(-0.5, 0, 0.5); 
     glEnd();
 
     // Front
     glBegin(GL_POLYGON);
-    glVertex3f(0.5, 0, 0);
-    glVertex3f(0.5, 1, 0);
-    glVertex3f(-0.5, 1, 0);
-    glVertex3f(-0.5, 0, 0);
+    glTexCoord2f(1.0, 0.0); glVertex3f(0.5, 0, 0); 
+    glTexCoord2f(1.0, 1.0); glVertex3f(0.5, 1, 0); 
+     glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0);
+     glTexCoord2f(0.0, 0.0); glVertex3f(-0.5, 0, 0);
     glEnd();
 
     // RIGHT
     glBegin(GL_POLYGON);
-    glVertex3f(0.5, 0, -0.5);
-    glVertex3f(0.5, 1, -0.5);
-    glVertex3f(0.5, 1, 0.5);
-    glVertex3f(0.5, 0, 0.5);
+     glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 0, -0.5);
+     glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, -0.5);
+    glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, 0.5); 
+    glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 0, 0.5); 
     glEnd();
 
     // LEFT
     glBegin(GL_POLYGON);
-    glVertex3f(-0.5, 0, 0.5);
-    glVertex3f(-0.5, 1, 0.5);
-    glVertex3f(-0.5, 1, -0.5);
-    glVertex3f(-0.5, 0, -0.5);
+    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 0, 0.5); 
+    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
+     glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
+     glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 0, -0.5);
     glEnd();
 
     // TOP
     glBegin(GL_POLYGON);
-    glVertex3f(0.5, 1, 0.5);
-    glVertex3f(0.5, 1, -0.5);
-    glVertex3f(-0.5, 1, -0.5);
-    glVertex3f(-0.5, 1, 0.5);
+    glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, 0.5);  
+     glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, -0.5); 
+      glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
+     glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
     glEnd();
 
     // BOTTOM
     glBegin(GL_POLYGON);
-    glVertex3f(0.5, 0, -0.5);
-    glVertex3f(0.5, 0, 0.5);
-    glVertex3f(-0.5, 0, 0.5);
-    glVertex3f(-0.5, 0, -0.5);
+    glVertex3f(0.5, 0, -0.5); glTexCoord2f(0.0, 1.0);
+    glVertex3f(0.5, 0, 0.5); glTexCoord2f(0.0, 1.0);
+    glVertex3f(-0.5, 0, 0.5); glTexCoord2f(0.0, 1.0);
+    glVertex3f(-0.5, 0, -0.5); glTexCoord2f(0.0, 1.0);
     glEnd();
 
     glDisable(GL_TEXTURE_2D);
