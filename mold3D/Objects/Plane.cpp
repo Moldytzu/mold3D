@@ -10,8 +10,11 @@ void Plane::Draw()
 {
     glPushMatrix();
 
-    glBindTexture(GL_TEXTURE_2D, render::GlobalTextures[TextureIndex]);
-
+    if(TextureIndex > 0) {
+        glBindTexture(GL_TEXTURE_2D, render::GlobalTextures[TextureIndex]);
+        glEnable(GL_TEXTURE_2D);
+    }
+        
     glColor3f(color.R, color.G, color.B); // set color
 
     //scale up
@@ -19,7 +22,6 @@ void Plane::Draw()
 
     //move in the world
     glTranslatef(coords.X, coords.Y, coords.Z);
-
 
     glBegin(GL_QUADS);
     glTexCoord2f(0.0, 0.0);
@@ -33,4 +35,6 @@ void Plane::Draw()
     glEnd();
 
     glPopMatrix();
+
+    glDisable(GL_TEXTURE_2D);
 }

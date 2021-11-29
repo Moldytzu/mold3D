@@ -12,6 +12,11 @@ void Pyramid::Draw()
 
     glColor3f(color.R, color.G, color.B); // set color
 
+    if(TextureIndex > 0) {
+        glBindTexture(GL_TEXTURE_2D, render::GlobalTextures[TextureIndex]);
+        glEnable(GL_TEXTURE_2D);
+    }
+
     //scale up
     glScalef(Size, Size, Size);
 
@@ -49,6 +54,8 @@ void Pyramid::Draw()
     glVertex3f(0 - 1.0f / 2, 0, 0 - 1.0f / 2);
     glVertex3f(0 + 1.0f / 2, 0, 0 - 1.0f / 2);
     glEnd();
+
+    glDisable(GL_TEXTURE_2D);
 
     glPopMatrix();
 }
