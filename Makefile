@@ -11,15 +11,20 @@ CFLAGS = -I $(shell pwd)/ -I $(shell pwd)/mold3D/3rd-Party/imgui -Ofast
 SRC = $(call rwildcard,$(SRCDIR),*.cpp)  
 OBJS = $(call reverse,$(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRC)))
 
+LIB = libmold3D.a
+
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@ mkdir -p $(@D)
 	$(CPP) $(CFLAGS) -c $^ -o $@
 
+.PHONY: build
+build: lib
+
 clean:
 	rm -rf $(OBJS)
 
-link: $(OBJS)
-	$(CPP) main.cpp $(OBJS) -lGL -lGLU -lSDL2 -o game $(CFLAGS)
+lib: $(OBJS)
+	ar -crs $(LIB) $(OBJS)
 
-.PHONY: build
-build: link
+game: lib 
+	$(CPP) main.cpp $(LIB) -lGL -lGLU -lSDL2 -o game $(CFLAGS)
