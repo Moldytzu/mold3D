@@ -1,5 +1,6 @@
 .vscode
 game
 *.o
+*.a
 imgui.ini
 push.sh
