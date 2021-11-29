@@ -4,14 +4,13 @@ using namespace mold::render::objects;
 
 Plane::Plane() {}
 
-Plane::Plane(Point3D point, RGB color, Float3D size) : GameObject(point, color, size / 2) {}
+Plane::Plane(Point3D point, RGB color, Float3D size, uint32_t TextureIndex) : GameObject(point, color, size / 2, TextureIndex) {}
 
 void Plane::Draw()
 {
     glPushMatrix();
 
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, render::GlobalTextures[TextureIndex]);
 
     glColor3f(color.R, color.G, color.B); // set color
 
@@ -20,6 +19,7 @@ void Plane::Draw()
 
     //move in the world
     glTranslatef(coords.X, coords.Y, coords.Z);
+
 
     glBegin(GL_QUADS);
     glTexCoord2f(0.0, 0.0);
@@ -31,8 +31,6 @@ void Plane::Draw()
     glTexCoord2f(0.0, 1.0);
     glVertex3f(1.0f + 0, 0, 0 - 1.0f);
     glEnd();
-
-    glDisable(GL_TEXTURE_2D);
 
     glPopMatrix();
 }

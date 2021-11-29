@@ -56,34 +56,15 @@ int main()
    Init(800, 600);
    render::SetProjection(90.0f);
 
-   Byte* img = mold::render::texture::LoadRGBBitmap("texture.bmp");
-
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    // Create Texture
-
-    glGenTextures(2, (GLuint*)img);
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
-
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
-
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, 512, 512, 0,
-
-    GL_RGB, GL_UNSIGNED_BYTE, img);
-
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-
+   render::texture::Texture img = mold::render::texture::LoadRGBBitmap("texture.bmp");
 
    input::LockCursor = true;
 
    gui::GlobalConsole.AddHelpCommand("hello");
 
-   pyramid = render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 2.0f);
-   cube = render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 3.0f);
-   ground = render::objects::Plane({0, 0, 0}, {0.0f, 1.0f, 0.0f}, 3.0f);
+   pyramid = render::objects::Pyramid({0, 0, 0}, {5.0f, 1.0f, 0}, 2.0f, 0);
+   cube = render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 1.0f}, 3.0f, 0);
+   ground = render::objects::Plane({0, 0, 0}, {0.0f, 1.0f, 0.0f}, 3.0f, render::texture::UseTexture(img));
    render::GlobalCamera = render::objects::Camera({0.0f, 0.5f, 1.5f});
 
    GlobalEventSystem.AttachCallback(EventType::Redraw, (void *)RedrawEvent);

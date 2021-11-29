@@ -2,7 +2,7 @@
 
 using namespace mold;
 
-Byte *mold::render::texture::LoadRGBBitmap(Text filename)
+mold::render::texture::Texture mold::render::texture::LoadRGBBitmap(Text filename)
 {
     FILE *file;
     uint32_t size;
@@ -18,7 +18,7 @@ Byte *mold::render::texture::LoadRGBBitmap(Text filename)
 
         mold::core::logging::Error(buffer);
 
-        return NULL;
+        return {};
     }
     
     BitmapImageHeader* header = (BitmapImageHeader*)malloc(sizeof(BitmapImageHeader));
@@ -29,7 +29,7 @@ Byte *mold::render::texture::LoadRGBBitmap(Text filename)
 
         mold::core::logging::Error(buffer);
 
-        return NULL;
+        return {};
     }
 
     if(header->BPP != 24)
@@ -39,30 +39,35 @@ Byte *mold::render::texture::LoadRGBBitmap(Text filename)
 
         mold::core::logging::Error(buffer);
 
-        return NULL;
+        return {};
     }
 
-    Byte *data = (Byte *)malloc(header->ImageSize);
+    Texture texture;
 
-    if(fread(data,header->ImageSize,1,file) != 1)
+    texture.Width = header->BitmapWidth;
+    texture.Height = header->BitmapHeight;
+
+    texture.PixelData = (Byte *)malloc(header->ImageSize);
+
+    if(fread(texture.PixelData,header->ImageSize,1,file) != 1)
     {
         char buffer[1024];
         sprintf(buffer, "Couldn't load pixel information from %s!",filename);
 
         mold::core::logging::Error(buffer);
 
-        return NULL;
+        return {};
     }
 
     for (int i=0;i<header->ImageSize;i+=3) { // reverse all of the colors. (bgr -> rgb)
 
-        Byte temp = data[i];
+        Byte temp = texture.PixelData[i];
 
-        data[i] = data[i+2];
+        texture.PixelData[i] = texture.PixelData[i+2];
 
-        data[i+2] = temp;
+        texture.PixelData[i+2] = temp;
 
     }
 
-    return data;
+    return texture;
 }

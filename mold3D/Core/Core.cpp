@@ -27,6 +27,12 @@ void mold::core::Init(int width, int height)
     GlobalGLContext = SDL_GL_CreateContext(GlobalWindow);
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
+    glShadeModel(GL_FLAT);
+
+    mold::render::GlobalTextures = (mold::Byte*)malloc(0xFFFFFF); // 16 million textures should be enough
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glGenTextures(2, (GLuint*)render::GlobalTextures);
 
     mold::render::GlobalCamera = mold::render::objects::Camera({0, 0, 0});
     GlobalEventSystem = mold::core::EventSystem();

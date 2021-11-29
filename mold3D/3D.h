@@ -61,18 +61,19 @@ namespace mold
             {
             public:
                 GameObject();
-                GameObject(Point3D point, RGB color, Float3D Size);
+                GameObject(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex);
                 void Draw();
                 Point3D coords;
                 RGB color;
                 Float3D Size;
+                uint32_t TextureIndex;
             };
 
             class Pyramid : public GameObject
             {
             public:
                 Pyramid();
-                Pyramid(Point3D point, RGB color, Float3D Size);
+                Pyramid(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex);
                 virtual void Draw();
             };
 
@@ -80,7 +81,7 @@ namespace mold
             {
             public:
                 Cube();
-                Cube(Point3D point, RGB color, Float3D Size);
+                Cube(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex);
                 virtual void Draw();
             };
 
@@ -88,7 +89,7 @@ namespace mold
             {
             public:
                 Plane();
-                Plane(Point3D point, RGB color, Float3D Size);
+                Plane(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex);
                 virtual void Draw();
             };
 
@@ -106,7 +107,14 @@ namespace mold
 
         namespace texture
         {
-            Byte *LoadRGBBitmap(Text filename);
+            struct Texture
+            {
+                uint32_t Size;
+                uint32_t Width;
+                uint32_t Height;
+
+                Byte* PixelData;
+            };
 
             struct BitmapImageHeader //https://en.wikipedia.org/wiki/BMP_file_format
             {
@@ -133,11 +141,17 @@ namespace mold
                 uint32_t Colors; //colors in the color palette
                 uint32_t ImportantColors; //important colors used, generally ignored
             } __attribute__((packed));
+
+            Texture LoadRGBBitmap(Text filename);
+
+            uint32_t UseTexture(Texture texture);
         };
 
         void SetProjection(Float3D fov);
 
         inline objects::Camera GlobalCamera;
+        inline Byte *GlobalTextures;
+        inline uint32_t LastTextureIndex = 1;
     };
 
     namespace core

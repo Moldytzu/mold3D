@@ -4,7 +4,7 @@ using namespace mold::render::objects;
 
 Cube::Cube() {}
 
-Cube::Cube(Point3D point, RGB color, Float3D Size) : GameObject({point.X, point.Y, point.Z}, color, Size) {}
+Cube::Cube(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex) : GameObject({point.X, point.Y, point.Z}, color, Size, TextureIndex) {}
 
 void Cube::Draw()
 {
