@@ -24,7 +24,7 @@ void Cube::Draw()
     //move in the world
     glTranslatef(coords.X, coords.Y, coords.Z);
 
-    // BACK
+    // FRONT
     glBegin(GL_POLYGON);
     glTexCoord2f(1.0, 0.0); glVertex3f(0.5, 0, 0.5);  
     glTexCoord2f(1.0, 1.0); glVertex3f(0.5, 1, 0.5);  
@@ -32,36 +32,36 @@ void Cube::Draw()
     glTexCoord2f(0.0, 0.0); glVertex3f(-0.5, 0, 0.5); 
     glEnd();
 
-    // Front
+    // BACK
     glBegin(GL_POLYGON);
-    glTexCoord2f(1.0, 0.0); glVertex3f(0.5, 0, 0); 
-    glTexCoord2f(1.0, 1.0); glVertex3f(0.5, 1, 0); 
-     glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0);
-     glTexCoord2f(0.0, 0.0); glVertex3f(-0.5, 0, 0);
+    glTexCoord2f(1.0, 0.0); glVertex3f(0.5, 0, -0.5); 
+    glTexCoord2f(1.0, 1.0); glVertex3f(0.5, 1, -0.5); 
+    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
+    glTexCoord2f(0.0, 0.0); glVertex3f(-0.5, 0, -0.5);
     glEnd();
 
     // RIGHT
     glBegin(GL_POLYGON);
-     glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 0, -0.5);
-     glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, -0.5);
+    glTexCoord2f(1.0, 0.0); glVertex3f(0.5, 0, -0.5);
+    glTexCoord2f(1.0, 1.0); glVertex3f(0.5, 1, -0.5);
     glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, 0.5); 
-    glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 0, 0.5); 
+    glTexCoord2f(0.0, 0.0); glVertex3f(0.5, 0, 0.5); 
     glEnd();
 
     // LEFT
     glBegin(GL_POLYGON);
-    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 0, 0.5); 
-    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
-     glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
-     glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 0, -0.5);
+    glTexCoord2f(1.0, 0.0); glVertex3f(-0.5, 0, 0.5); 
+    glTexCoord2f(1.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
+    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
+    glTexCoord2f(0.0, 0.0); glVertex3f(-0.5, 0, -0.5);
     glEnd();
 
     // TOP
     glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, 0.5);  
-     glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, -0.5); 
-      glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
-     glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
+    glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, -0.5); 
+    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
+    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
     glEnd();
 
     // BOTTOM
