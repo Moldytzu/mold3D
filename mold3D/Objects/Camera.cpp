@@ -23,11 +23,13 @@ void Camera::Move(Direction direction, Float3D value)
     }
     if (direction == Direction::Right)
     {
-        coords.X += value;
+        coords.Z -= -AngleX * value;  
+        coords.X -= AngleZ * value;        
     }
     if (direction == Direction::Left)
     {
-        coords.X -= value;
+        coords.Z += -AngleX * value;  
+        coords.X += AngleZ * value;    
     }
     if (direction == Direction::Backward)
     {
