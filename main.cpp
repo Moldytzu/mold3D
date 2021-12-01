@@ -13,17 +13,26 @@ void RedrawEvent()
 {
    if (!gui::GlobalConsole.Enabled)
    {
-      if (input::KeyStates[input::Key::RIGHT] || input::KeyStates[input::Key::D])
+      if (input::KeyStates[input::Key::RIGHT])
          render::GlobalCamera.Rotate(Direction::Right, turnSpeed * time::DeltaTime);
 
-      if (input::KeyStates[input::Key::LEFT] || input::KeyStates[input::Key::A])
+      if (input::KeyStates[input::Key::LEFT])
          render::GlobalCamera.Rotate(Direction::Left, turnSpeed * time::DeltaTime);
 
-      if (input::KeyStates[input::Key::UP] || input::KeyStates[input::Key::W])
+      if (input::KeyStates[input::Key::UP])
          render::GlobalCamera.Rotate(Direction::Forward, turnSpeed * time::DeltaTime);
 
-      if (input::KeyStates[input::Key::DOWN] || input::KeyStates[input::Key::S])
+      if (input::KeyStates[input::Key::DOWN])
          render::GlobalCamera.Rotate(Direction::Backward, turnSpeed * time::DeltaTime);
+
+      if (input::KeyStates[input::Key::D])
+         render::GlobalCamera.Move(Direction::Right, turnSpeed * time::DeltaTime);
+      if (input::KeyStates[input::Key::A])
+         render::GlobalCamera.Move(Direction::Left, turnSpeed * time::DeltaTime);
+      if (input::KeyStates[input::Key::W])
+         render::GlobalCamera.Move(Direction::Forward, turnSpeed * time::DeltaTime);
+      if (input::KeyStates[input::Key::S])
+         render::GlobalCamera.Move(Direction::Backward, turnSpeed * time::DeltaTime);
    }
 
    ground.Draw();
