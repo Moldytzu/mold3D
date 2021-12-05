@@ -76,7 +76,8 @@ int main()
    ground = render::objects::Plane({0, 5, 0}, {0.0f, 1.0f, 0.0f}, 3.0f, render::texture::UseTexture(img));
    render::GlobalCamera = render::objects::Camera({0.0f, 5.5f, 1.5f});
 
-   render::GlobalCamera.MovementIgnoreRotationX = false;
+   render::GlobalCamera.MovementIgnoreRotationX = true;
+   render::GlobalCamera.MovementIgnoreRotationY = true;
 
    GlobalEventSystem.AttachCallback(EventType::Redraw, (void *)RedrawEvent);
    GlobalEventSystem.AttachCallback(EventType::Resize, (void *)ResizeEvent);

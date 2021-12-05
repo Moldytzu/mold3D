@@ -21,7 +21,8 @@ void Camera::Move(Direction direction, Float3D value)
         if(!MovementIgnoreRotationX)
             coords.X += AngleX * value;
         coords.Z += AngleZ * value;
-        coords.Y += AngleY * value;
+        if(!MovementIgnoreRotationY)
+            coords.Y += AngleY * value;
     }
     if (direction == Direction::Right)
     {
@@ -40,7 +41,8 @@ void Camera::Move(Direction direction, Float3D value)
         if(!MovementIgnoreRotationX)
             coords.X -= AngleX * value;
         coords.Z -= AngleZ * value;
-        coords.Y -= AngleY * value;
+        if(!MovementIgnoreRotationY)
+            coords.Y -= AngleY * value;
     }
 }
 
