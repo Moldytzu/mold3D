@@ -56,9 +56,9 @@ void mold::gui::Profiler::Draw()
         ImGui::Text("OpenGL Renderer: %s\n", glGetString(GL_RENDERER));
         GLint total_mem_kb = 0;
         glGetIntegerv(0x9047, &total_mem_kb); //works for nVidia
-        if(glGetError() == 1280) //it fails on AMD and Intel
+        if (glGetError() == 1280)             //it fails on AMD and Intel
             glGetIntegerv(0x87FD, &total_mem_kb);
-        if(glGetError() != 1280)
+        if (glGetError() != 1280)
             ImGui::Text("GPU video memory: %u KB\n", total_mem_kb);
         ImGui::Separator();
         ImGui::Text("Press INSERT to close overlay\n");

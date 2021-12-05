@@ -82,6 +82,7 @@ namespace mold
                 Float3D Size;
                 uint32_t TextureIndex;
                 Float3D Light = 1.0f;
+                bool Enabled = true;
             };
 
             class Pyramid : public GameObject
@@ -165,7 +166,7 @@ namespace mold
 
         namespace lighting
         {
-            inline Float3D AmbientLight = 1.0f;  
+            inline Float3D AmbientLight = 1.0f;
         };
 
         void SetProjection(Float3D fov);
