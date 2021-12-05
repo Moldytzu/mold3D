@@ -64,7 +64,7 @@ namespace mold
         glBindTexture(GL_TEXTURE_2D, render::GlobalTextures[TextureIndex]); \
         glEnable(GL_TEXTURE_2D);                                            \
     }                                                                       \
-    glColor3f(color.R, color.G, color.B);                                   \
+    glColor3f(color.R *Light, color.G *Light, color.B *Light);              \
     glTranslatef(coords.X, coords.Y, coords.Z);                             \
     glScalef(Size, Size, Size);                                             \
     code                                                                    \
@@ -81,6 +81,7 @@ namespace mold
                 RGB color;
                 Float3D Size;
                 uint32_t TextureIndex;
+                Float3D Light = 1.0f;
             };
 
             class Pyramid : public GameObject
@@ -160,6 +161,11 @@ namespace mold
             Texture LoadRGBBitmap(Text filename);
 
             uint32_t UseTexture(Texture texture);
+        };
+
+        namespace lighting
+        {
+            inline Float3D AmbientLight = 1.0f;  
         };
 
         void SetProjection(Float3D fov);

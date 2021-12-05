@@ -115,6 +115,7 @@ void mold::core::Run()
             CALL_EVENT(EventType::Redraw);
             for (std::pair<Text, render::objects::GameObject *> object : render::objects::GameObjects)
             {
+                object.second->Light = render::lighting::AmbientLight;
                 object.second->Draw();
             }
             mold::gui::GlobalConsole.Draw();

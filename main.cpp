@@ -77,6 +77,8 @@ int main()
    render::GlobalCamera.MovementIgnoreRotationX = false;
    render::GlobalCamera.MovementIgnoreRotationY = false;
 
+   render::lighting::AmbientLight = 0.1f;
+
    GlobalEventSystem.AttachCallback(EventType::Redraw, (void *)RedrawEvent);
    GlobalEventSystem.AttachCallback(EventType::Resize, (void *)ResizeEvent);
    GlobalEventSystem.AttachCallback(EventType::BeforeExit, (void *)BeforeExitEvent);
