@@ -18,11 +18,11 @@ void Cube::Draw()
         glEnable(GL_TEXTURE_2D);
     }
 
-    //scale up
-    glScalef(Size, Size, Size);
-
     //move in the world
     glTranslatef(coords.X, coords.Y, coords.Z);
+
+    //scale up
+    glScalef(Size, Size, Size);
 
     // FRONT
     glBegin(GL_POLYGON);

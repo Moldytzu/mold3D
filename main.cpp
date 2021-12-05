@@ -71,12 +71,12 @@ int main()
 
    gui::GlobalConsole.AddHelpCommand("hello");
 
-   pyramid = render::objects::Pyramid({0, 0, 0}, {1.0f, 1.0f, 0.0f}, 2.0f, render::texture::UseTexture(img));
-   cube = render::objects::Cube({0, 0, 0}, {1.0f, 1.0f, 0.0f}, 1.0f, render::texture::UseTexture(img));
-   ground = render::objects::Plane({0, 0, 0}, {0.0f, 1.0f, 0.0f}, 3.0f, render::texture::UseTexture(img));
-   render::GlobalCamera = render::objects::Camera({0.0f, 0.5f, 1.5f});
+   pyramid = render::objects::Pyramid({0, 5, 0}, {1.0f, 1.0f, 0.0f}, 2.0f, render::texture::UseTexture(img));
+   cube = render::objects::Cube({0, 5, 0}, {1.0f, 1.0f, 0.0f}, 1.0f, render::texture::UseTexture(img));
+   ground = render::objects::Plane({0, 5, 0}, {0.0f, 1.0f, 0.0f}, 3.0f, render::texture::UseTexture(img));
+   render::GlobalCamera = render::objects::Camera({0.0f, 5.5f, 1.5f});
 
-   render::GlobalCamera.MovementIgnoreRotationX = true;
+   render::GlobalCamera.MovementIgnoreRotationX = false;
 
    GlobalEventSystem.AttachCallback(EventType::Redraw, (void *)RedrawEvent);
    GlobalEventSystem.AttachCallback(EventType::Resize, (void *)ResizeEvent);

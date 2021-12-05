@@ -14,3 +14,6 @@
     - 3 basic 3D figures
     - It compiles into a static library (no need to have an extra file around the main game executable)
     - Game objects
+
+# Known Issues
+    - When Y is less than 0 the projection is flipped

@@ -18,11 +18,11 @@ void Plane::Draw()
 
     glColor3f(color.R, color.G, color.B); // set color
 
-    //scale up
-    glScalef(Size, Size, Size);
-
     //move in the world
     glTranslatef(coords.X, coords.Y, coords.Z);
+
+    //scale up
+    glScalef(Size, Size, Size);
 
     glBegin(GL_QUADS);
     glTexCoord2f(0.0, 1.0);
