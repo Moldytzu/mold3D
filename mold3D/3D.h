@@ -62,7 +62,7 @@ namespace mold
             public:
                 GameObject();
                 GameObject(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex);
-                void Draw();
+                virtual void Draw();
                 Point3D coords;
                 RGB color;
                 Float3D Size;
@@ -72,25 +72,22 @@ namespace mold
             class Pyramid : public GameObject
             {
             public:
-                Pyramid();
                 Pyramid(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex);
-                virtual void Draw();
+                void Draw();
             };
 
             class Cube : public GameObject
             {
             public:
-                Cube();
                 Cube(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex);
-                virtual void Draw();
+                void Draw();
             };
 
             class Plane : public GameObject
             {
             public:
-                Plane();
                 Plane(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex);
-                virtual void Draw();
+                void Draw();
             };
 
             class Camera : public GameObject
@@ -98,13 +95,15 @@ namespace mold
             public:
                 Camera();
                 Camera(Point3D point);
-                virtual void Draw();
+                void Draw();
                 void Move(Direction direction, Float3D value);
                 void Rotate(Direction direction, Float3D value);
                 Float3D AngleZ = -1.0f, AngleX = 0, AngleY = 0, Angle = 0, Angle2 = 0;
                 bool MovementIgnoreRotationX = false;
                 bool MovementIgnoreRotationY = false;
             };
+
+            inline std::map<Text, GameObject *> GameObjects;
         };
 
         namespace texture
@@ -115,7 +114,7 @@ namespace mold
                 uint32_t Width;
                 uint32_t Height;
 
-                Byte* PixelData;
+                Byte *PixelData;
             };
 
             struct BitmapImageHeader //https://en.wikipedia.org/wiki/BMP_file_format
@@ -131,17 +130,17 @@ namespace mold
                 uint32_t DataOffset; //offset to the image data
 
                 //BITMAPINFOHEADER
-                uint32_t HeaderSize; //size of BITMAPINFOHEADER, always 0x28 (decimal 40)
-                int32_t BitmapWidth; //width of the image
-                int32_t BitmapHeight; //height of the image
-                uint16_t Planes; //bit planes 
-                uint16_t BPP; //bits per pixel
-                uint32_t CompressionMethod; //the method of compression used
-                uint32_t ImageSize; //size in bytes of the whole image, without headers
+                uint32_t HeaderSize;          //size of BITMAPINFOHEADER, always 0x28 (decimal 40)
+                int32_t BitmapWidth;          //width of the image
+                int32_t BitmapHeight;         //height of the image
+                uint16_t Planes;              //bit planes
+                uint16_t BPP;                 //bits per pixel
+                uint32_t CompressionMethod;   //the method of compression used
+                uint32_t ImageSize;           //size in bytes of the whole image, without headers
                 int32_t HorizontalResolution; //resolution in pixel per metre
-                int32_t VerticalResolution; //resolution in pixel per metre
-                uint32_t Colors; //colors in the color palette
-                uint32_t ImportantColors; //important colors used, generally ignored
+                int32_t VerticalResolution;   //resolution in pixel per metre
+                uint32_t Colors;              //colors in the color palette
+                uint32_t ImportantColors;     //important colors used, generally ignored
             } __attribute__((packed));
 
             Texture LoadRGBBitmap(Text filename);
