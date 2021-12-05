@@ -70,9 +70,9 @@ int main()
 
    render::GlobalCamera = render::objects::Camera({0.0f, 5.5f, 1.5f});
 
-   render::objects::GameObjects["pyramid"] = new render::objects::Pyramid({0, 5, 0}, {1.0f, 1.0f, 0.0f}, 2.0f, render::texture::UseTexture(img));
-   render::objects::GameObjects["ground"] = new render::objects::Plane({0, 5, 0}, {0.0f, 1.0f, 0.0f}, 3.0f, render::texture::UseTexture(img));
-   render::objects::GameObjects["niceCube"] = new render::objects::Cube({0, 5, 0}, {1.0f, 1.0f, 0.0f}, 1.0f, render::texture::UseTexture(img));
+   render::objects::GameObjects["pyramid"] = new render::objects::Pyramid({0, 5, 0}, {1.0f, 1.0f, 1.0f}, 2.0f, render::texture::UseTexture(img));
+   render::objects::GameObjects["ground"] = new render::objects::Plane({0, 5, 0}, {1.0f, 1.0f, 1.0f}, 3.0f, render::texture::UseTexture(img));
+   render::objects::GameObjects["niceCube"] = new render::objects::Cube({0, 5, 0}, {1.0f, 1.0f, 1.0f}, 1.0f, render::texture::UseTexture(img));
 
    render::GlobalCamera.MovementIgnoreRotationX = false;
    render::GlobalCamera.MovementIgnoreRotationY = false;
