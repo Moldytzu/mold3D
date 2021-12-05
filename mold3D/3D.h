@@ -102,6 +102,8 @@ namespace mold
                 void Move(Direction direction, Float3D value);
                 void Rotate(Direction direction, Float3D value);
                 Float3D AngleZ = -1.0f, AngleX = 0, AngleY = 0, Angle = 0, Angle2 = 0;
+                bool MovementIgnoreRotationX = false;
+                bool MovementIgnoreRotationY = false;
             };
         };
 
