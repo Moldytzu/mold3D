@@ -18,30 +18,30 @@ void Camera::Move(Direction direction, Float3D value)
 {
     if (direction == Direction::Forward)
     {
-        if(!MovementIgnoreRotationX)
+        if (!MovementIgnoreRotationX)
             coords.X += AngleX * value;
         coords.Z += AngleZ * value;
-        if(!MovementIgnoreRotationY)
+        if (!MovementIgnoreRotationY)
             coords.Y += AngleY * value;
     }
     if (direction == Direction::Right)
     {
-        if(!MovementIgnoreRotationX)
-            coords.Z -= -AngleX * value;  
-        coords.X -= AngleZ * value;        
+        if (!MovementIgnoreRotationX)
+            coords.Z -= -AngleX * value;
+        coords.X -= AngleZ * value;
     }
     if (direction == Direction::Left)
     {
-        if(!MovementIgnoreRotationX)
-            coords.Z += -AngleX * value;  
-        coords.X += AngleZ * value;    
+        if (!MovementIgnoreRotationX)
+            coords.Z += -AngleX * value;
+        coords.X += AngleZ * value;
     }
     if (direction == Direction::Backward)
     {
-        if(!MovementIgnoreRotationX)
+        if (!MovementIgnoreRotationX)
             coords.X -= AngleX * value;
         coords.Z -= AngleZ * value;
-        if(!MovementIgnoreRotationY)
+        if (!MovementIgnoreRotationY)
             coords.Y -= AngleY * value;
     }
 }

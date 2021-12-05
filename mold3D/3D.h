@@ -57,6 +57,20 @@ namespace mold
     {
         namespace objects
         {
+#define BoilerPlate(code)                                                   \
+    glPushMatrix();                                                         \
+    if (TextureIndex > 0)                                                   \
+    {                                                                       \
+        glBindTexture(GL_TEXTURE_2D, render::GlobalTextures[TextureIndex]); \
+        glEnable(GL_TEXTURE_2D);                                            \
+    }                                                                       \
+    glColor3f(color.R, color.G, color.B);                                   \
+    glTranslatef(coords.X, coords.Y, coords.Z);                             \
+    glScalef(Size, Size, Size);                                             \
+    code                                                                    \
+    glPopMatrix();                                                          \
+    glDisable(GL_TEXTURE_2D);
+
             class GameObject
             {
             public:
@@ -495,5 +509,4 @@ namespace mold
 
         };
     };
-
 };

@@ -2,77 +2,82 @@
 
 using namespace mold::render::objects;
 
-Cube::Cube() {}
-
 Cube::Cube(Point3D point, RGB color, Float3D Size, uint32_t TextureIndex) : GameObject({point.X, point.Y, point.Z}, color, Size, TextureIndex) {}
 
 void Cube::Draw()
 {
-    glPushMatrix();
+    BoilerPlate(
+        {
+            // FRONT
+            glBegin(GL_POLYGON);
+            glTexCoord2f(1.0, 0.0);
+            glVertex3f(0.5, 0, 0.5);
+            glTexCoord2f(1.0, 1.0);
+            glVertex3f(0.5, 1, 0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(-0.5, 1, 0.5);
+            glTexCoord2f(0.0, 0.0);
+            glVertex3f(-0.5, 0, 0.5);
+            glEnd();
 
-    glColor3f(color.R, color.G, color.B); // set color
+            // BACK
+            glBegin(GL_POLYGON);
+            glTexCoord2f(1.0, 0.0);
+            glVertex3f(0.5, 0, -0.5);
+            glTexCoord2f(1.0, 1.0);
+            glVertex3f(0.5, 1, -0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(-0.5, 1, -0.5);
+            glTexCoord2f(0.0, 0.0);
+            glVertex3f(-0.5, 0, -0.5);
+            glEnd();
 
-    if (TextureIndex > 0)
-    {
-        glBindTexture(GL_TEXTURE_2D, render::GlobalTextures[TextureIndex]);
-        glEnable(GL_TEXTURE_2D);
-    }
+            // RIGHT
+            glBegin(GL_POLYGON);
+            glTexCoord2f(1.0, 0.0);
+            glVertex3f(0.5, 0, -0.5);
+            glTexCoord2f(1.0, 1.0);
+            glVertex3f(0.5, 1, -0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(0.5, 1, 0.5);
+            glTexCoord2f(0.0, 0.0);
+            glVertex3f(0.5, 0, 0.5);
+            glEnd();
 
-    //move in the world
-    glTranslatef(coords.X, coords.Y, coords.Z);
+            // LEFT
+            glBegin(GL_POLYGON);
+            glTexCoord2f(1.0, 0.0);
+            glVertex3f(-0.5, 0, 0.5);
+            glTexCoord2f(1.0, 1.0);
+            glVertex3f(-0.5, 1, 0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(-0.5, 1, -0.5);
+            glTexCoord2f(0.0, 0.0);
+            glVertex3f(-0.5, 0, -0.5);
+            glEnd();
 
-    //scale up
-    glScalef(Size, Size, Size);
+            // TOP
+            glBegin(GL_POLYGON);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(0.5, 1, 0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(0.5, 1, -0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(-0.5, 1, -0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(-0.5, 1, 0.5);
+            glEnd();
 
-    // FRONT
-    glBegin(GL_POLYGON);
-    glTexCoord2f(1.0, 0.0); glVertex3f(0.5, 0, 0.5);  
-    glTexCoord2f(1.0, 1.0); glVertex3f(0.5, 1, 0.5);  
-    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
-    glTexCoord2f(0.0, 0.0); glVertex3f(-0.5, 0, 0.5); 
-    glEnd();
-
-    // BACK
-    glBegin(GL_POLYGON);
-    glTexCoord2f(1.0, 0.0); glVertex3f(0.5, 0, -0.5); 
-    glTexCoord2f(1.0, 1.0); glVertex3f(0.5, 1, -0.5); 
-    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
-    glTexCoord2f(0.0, 0.0); glVertex3f(-0.5, 0, -0.5);
-    glEnd();
-
-    // RIGHT
-    glBegin(GL_POLYGON);
-    glTexCoord2f(1.0, 0.0); glVertex3f(0.5, 0, -0.5);
-    glTexCoord2f(1.0, 1.0); glVertex3f(0.5, 1, -0.5);
-    glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, 0.5); 
-    glTexCoord2f(0.0, 0.0); glVertex3f(0.5, 0, 0.5); 
-    glEnd();
-
-    // LEFT
-    glBegin(GL_POLYGON);
-    glTexCoord2f(1.0, 0.0); glVertex3f(-0.5, 0, 0.5); 
-    glTexCoord2f(1.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
-    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
-    glTexCoord2f(0.0, 0.0); glVertex3f(-0.5, 0, -0.5);
-    glEnd();
-
-    // TOP
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, 0.5);  
-    glTexCoord2f(0.0, 1.0); glVertex3f(0.5, 1, -0.5); 
-    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, -0.5);
-    glTexCoord2f(0.0, 1.0); glVertex3f(-0.5, 1, 0.5); 
-    glEnd();
-
-    // BOTTOM
-    glBegin(GL_POLYGON);
-    glVertex3f(0.5, 0, -0.5); glTexCoord2f(0.0, 1.0);
-    glVertex3f(0.5, 0, 0.5); glTexCoord2f(0.0, 1.0);
-    glVertex3f(-0.5, 0, 0.5); glTexCoord2f(0.0, 1.0);
-    glVertex3f(-0.5, 0, -0.5); glTexCoord2f(0.0, 1.0);
-    glEnd();
-
-    glDisable(GL_TEXTURE_2D);
-
-    glPopMatrix();
+            // BOTTOM
+            glBegin(GL_POLYGON);
+            glVertex3f(0.5, 0, -0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(0.5, 0, 0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(-0.5, 0, 0.5);
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(-0.5, 0, -0.5);
+            glTexCoord2f(0.0, 1.0);
+            glEnd();
+        })
 }
