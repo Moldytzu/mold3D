@@ -1,8 +1,8 @@
-# mold3D
+# mold3D (RETIRED)
 ### mold3D is a 3D game engine written in C++ using OpenGL 2, SDL2 and imgui (https://github.com/ocornut/imgui)
 
 # Disclaimer
-### This game engine is primitive and it's prone to change. Use it at your own risk!
+### This project is no longer maintained!
 
 # Features
     - 3D camera
